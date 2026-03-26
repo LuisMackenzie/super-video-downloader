@@ -41,6 +41,7 @@ jacoco {
 // =========================================================================
 
 val splitApks = System.getenv("SPLITS_INCLUDE")?.toBoolean() ?: true
+val configuredNdkVersion = libs.versions.ndk.get()
 val abiFilterList = (project.findProperty("ABI_FILTERS") as? String ?: "").split(';')
 val abiCodes = mapOf(
     "armeabi-v7a" to 1,
@@ -56,7 +57,7 @@ val abiCodes = mapOf(
 android {
     namespace = "com.myAllVideoBrowser"
     compileSdk = libs.versions.targetSdk.get().toInt()
-    ndkVersion = libs.versions.ndk.get()
+    ndkVersion = configuredNdkVersion
 
     // Compile Options
     compileOptions {
@@ -375,12 +376,38 @@ fun findNdkPath(): String {
             println("✓ Found NDK path in local.properties: $propVar")
             return propVar
         }
+
+        val sdkDir = properties.getProperty("sdk.dir")
+        if (!sdkDir.isNullOrEmpty()) {
+            val versionedNdkDir = file("${sdkDir}/ndk/${configuredNdkVersion}")
+            if (versionedNdkDir.exists()) {
+                println("✓ Found NDK path in sdk.dir side-by-side install: ${versionedNdkDir.path}")
+                return versionedNdkDir.path
+            }
+
+            val ndkBundleDir = file("${sdkDir}/ndk-bundle")
+            if (ndkBundleDir.exists()) {
+                println("✓ Found NDK path in ndk-bundle: ${ndkBundleDir.path}")
+                return ndkBundleDir.path
+            }
+
+            val latestSideBySideNdk = file("${sdkDir}/ndk")
+                .listFiles()
+                ?.filter { it.isDirectory }
+                ?.sortedByDescending { it.name }
+                ?.firstOrNull()
+            if (latestSideBySideNdk != null) {
+                println("✓ Found NDK path in sdk.dir fallback: ${latestSideBySideNdk.path}")
+                return latestSideBySideNdk.path
+            }
+        }
     }
 
     throw GradleException(
         "✗ NDK path not found. Please define one of:\n" +
         "  1. Environment: ANDROID_NDK_HOME or ANDROID_NDK_ROOT\n" +
-        "  2. Property: ndk.dir in local.properties"
+        "  2. Property: ndk.dir in local.properties\n" +
+        "  3. Install NDK ${configuredNdkVersion} in the Android SDK"
     )
 }
 
