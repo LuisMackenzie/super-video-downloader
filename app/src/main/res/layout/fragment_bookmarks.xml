@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.bookmarks.BookmarksFragment">
+    tools:context=".downhub.ui.main.bookmarks.BookmarksFragment">
 
     <data>
 
         <variable
             name="mainVModel"
-            type="com.mackenzie.ui.main.home.MainViewModel" />
+            type="com.mackenzie.downhub.ui.main.home.MainViewModel" />
     </data>
 
     <LinearLayout

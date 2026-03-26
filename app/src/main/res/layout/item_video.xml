@@ -10,11 +10,11 @@
 
         <variable
             name="localVideo"
-            type="com.mackenzie.data.local.model.LocalVideo" />
+            type="com.mackenzie.downhub.data.local.model.LocalVideo" />
 
         <variable
             name="videoListener"
-            type="com.mackenzie.ui.component.adapter.VideoListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.VideoListener" />
 
     </data>
 

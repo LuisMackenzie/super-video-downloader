@@ -8,11 +8,11 @@
 
         <variable
             name="suggestion"
-            type="com.mackenzie.data.local.room.entity.HistoryItem" />
+            type="com.mackenzie.downhub.data.local.room.entity.HistoryItem" />
 
         <variable
             name="listener"
-            type="com.mackenzie.ui.component.adapter.SuggestionTabListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.SuggestionTabListener" />
 
     </data>
 

@@ -9,7 +9,7 @@
 
         <variable
             name="bookmarkItem"
-            type="com.mackenzie.data.local.room.entity.PageInfo" />
+            type="com.mackenzie.downhub.data.local.room.entity.PageInfo" />
 
         <variable
             name="bookmarkUrl"
@@ -17,7 +17,7 @@
 
         <variable
             name="bookmarksListener"
-            type="com.mackenzie.ui.component.adapter.BookmarksListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.BookmarksListener" />
 
     </data>
 

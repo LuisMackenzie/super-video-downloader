@@ -7,15 +7,15 @@
 
         <import type="android.view.View" />
 
-        <import type="com.mackenzie.ui.main.proxies.ProxiesViewModel.SecureDnsProvider" />
+        <import type="com.mackenzie.downhub.ui.main.proxies.ProxiesViewModel" />
 
         <variable
             name="viewModel"
-            type="com.mackenzie.ui.main.proxies.ProxiesViewModel" />
+            type="com.mackenzie.downhub.ui.main.proxies.ProxiesViewModel" />
 
         <variable
             name="listener"
-            type="com.mackenzie.ui.component.adapter.ProxiesListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.ProxiesListener" />
     </data>
 
     <LinearLayout
@@ -27,7 +27,7 @@
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        tools:context=".ui.main.proxies.ProxiesFragment">
+        tools:context=".downhub.ui.main.proxies.ProxiesFragment">
 
         <LinearLayout
             android:id="@+id/toolbar"
@@ -118,32 +118,32 @@
                         android:id="@+id/cloudflareRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@{viewModel.selectedDnsProvider == SecureDnsProvider.CLOUDFLARE}"
-                        android:onClick="@{() -> viewModel.setSecureDnsProvider(SecureDnsProvider.CLOUDFLARE)}"
+                        android:checked="@{viewModel.selectedDnsProvider == ProxiesViewModel.SecureDnsProvider.CLOUDFLARE}"
+                        android:onClick="@{() -> viewModel.setSecureDnsProvider(ProxiesViewModel.SecureDnsProvider.CLOUDFLARE)}"
                         android:text="@string/doh_cloudflare" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/quad9RadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@{viewModel.selectedDnsProvider == SecureDnsProvider.QUAD9}"
-                        android:onClick="@{() -> viewModel.setSecureDnsProvider(SecureDnsProvider.QUAD9)}"
+                        android:checked="@{viewModel.selectedDnsProvider == ProxiesViewModel.SecureDnsProvider.QUAD9}"
+                        android:onClick="@{() -> viewModel.setSecureDnsProvider(ProxiesViewModel.SecureDnsProvider.QUAD9)}"
                         android:text="@string/doh_quad9" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/adguardRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@{viewModel.selectedDnsProvider == SecureDnsProvider.ADGUARD}"
-                        android:onClick="@{() -> viewModel.setSecureDnsProvider(SecureDnsProvider.ADGUARD)}"
+                        android:checked="@{viewModel.selectedDnsProvider == ProxiesViewModel.SecureDnsProvider.ADGUARD}"
+                        android:onClick="@{() -> viewModel.setSecureDnsProvider(ProxiesViewModel.SecureDnsProvider.ADGUARD)}"
                         android:text="@string/doh_ad_guard" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/customDnsRadioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@{viewModel.selectedDnsProvider == SecureDnsProvider.CUSTOM}"
-                        android:onClick="@{() -> viewModel.setSecureDnsProvider(SecureDnsProvider.CUSTOM)}"
+                        android:checked="@{viewModel.selectedDnsProvider == ProxiesViewModel.SecureDnsProvider.CUSTOM}"
+                        android:onClick="@{() -> viewModel.setSecureDnsProvider(ProxiesViewModel.SecureDnsProvider.CUSTOM)}"
                         android:text="@string/dns_custom" />
 
                 </RadioGroup>
@@ -156,7 +156,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="@{viewModel.selectedDnsProvider == SecureDnsProvider.CUSTOM &amp;&amp; viewModel.isSecureDnsOn ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{viewModel.selectedDnsProvider == ProxiesViewModel.SecureDnsProvider.CUSTOM &amp;&amp; viewModel.isSecureDnsOn ? View.VISIBLE : View.GONE}">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/customDnsInputLayout"

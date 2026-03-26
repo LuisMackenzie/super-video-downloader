@@ -9,11 +9,11 @@
 
         <variable
             name="pageInfo"
-            type="com.mackenzie.data.local.room.entity.PageInfo" />
+            type="com.mackenzie.downhub.data.local.room.entity.PageInfo" />
 
         <variable
             name="listener"
-            type="com.mackenzie.ui.component.adapter.TopPageAdapter.TopPagesListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.TopPageAdapter.TopPagesListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

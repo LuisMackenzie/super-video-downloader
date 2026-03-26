@@ -55,7 +55,7 @@ val abiCodes = mapOf(
 // =========================================================================
 
 android {
-    namespace = "com.mackenzie"
+    namespace = "com.mackenzie.downhub"
     compileSdk = libs.versions.targetSdk.get().toInt()
     ndkVersion = configuredNdkVersion
 
@@ -113,7 +113,7 @@ android {
 
     // Default Config
     defaultConfig {
-        applicationId = "com.myAllVideoBrowser"
+        applicationId = "com.mackenzie.downhub"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 193

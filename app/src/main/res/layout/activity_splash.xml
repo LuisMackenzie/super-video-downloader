@@ -8,7 +8,7 @@
 
         <variable
                 name="viewModel"
-                type="com.mackenzie.ui.main.splash.SplashViewModel"/>
+                type="com.mackenzie.downhub.ui.main.splash.SplashViewModel"/>
 
     </data>
 

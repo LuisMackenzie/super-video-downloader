@@ -8,7 +8,7 @@
 
         <variable
             name="listener"
-            type="com.mackenzie.ui.component.adapter.CandidateFormatListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.CandidateFormatListener" />
 
         <variable
             name="download_candidate"
@@ -20,7 +20,7 @@
 
         <variable
             name="videoInfo"
-            type="com.mackenzie.data.local.room.entity.VideoInfo" />
+            type="com.mackenzie.downhub.data.local.room.entity.VideoInfo" />
 
     </data>
 

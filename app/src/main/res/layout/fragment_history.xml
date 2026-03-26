@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.mackenzie.ui.main.history.HistoryViewModel" />
+            type="com.mackenzie.downhub.ui.main.history.HistoryViewModel" />
 
         <variable
             name="adapter"
-            type="com.mackenzie.ui.component.adapter.HistoryAdapter" />
+            type="com.mackenzie.downhub.ui.component.adapter.HistoryAdapter" />
 
     </data>
 

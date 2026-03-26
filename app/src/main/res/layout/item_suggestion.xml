@@ -9,11 +9,11 @@
 
         <variable
             name="suggestion"
-            type="com.mackenzie.data.local.model.Suggestion" />
+            type="com.mackenzie.downhub.data.local.model.Suggestion" />
 
         <variable
             name="listener"
-            type="com.mackenzie.ui.component.adapter.SuggestionListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.SuggestionListener" />
 
     </data>
 

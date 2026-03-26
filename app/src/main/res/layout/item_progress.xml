@@ -9,7 +9,7 @@
 
         <variable
             name="progressInfo"
-            type="com.mackenzie.data.local.room.entity.ProgressInfo" />
+            type="com.mackenzie.downhub.data.local.room.entity.ProgressInfo" />
 
         <variable
             name="downloadId"
@@ -22,7 +22,7 @@
 
         <variable
             name="progressListener"
-            type="com.mackenzie.ui.component.adapter.ProgressListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.ProgressListener" />
 
     </data>
 

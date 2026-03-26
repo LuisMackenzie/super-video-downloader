@@ -7,11 +7,11 @@
 
         <variable
             name="proxy"
-            type="com.mackenzie.data.local.model.Proxy" />
+            type="com.mackenzie.downhub.data.local.model.Proxy" />
 
         <variable
             name="proxiesListener"
-            type="com.mackenzie.ui.component.adapter.ProxiesListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.ProxiesListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -9,7 +9,7 @@
 
         <variable
             name="historyItem"
-            type="com.mackenzie.data.local.room.entity.HistoryItem" />
+            type="com.mackenzie.downhub.data.local.room.entity.HistoryItem" />
 
         <variable
             name="historyId"
@@ -17,7 +17,7 @@
 
         <variable
             name="historyListener"
-            type="com.mackenzie.ui.component.adapter.HistoryListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.HistoryListener" />
 
     </data>
 

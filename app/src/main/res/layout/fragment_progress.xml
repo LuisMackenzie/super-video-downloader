@@ -8,15 +8,15 @@
 
         <variable
             name="viewModel"
-            type="com.mackenzie.ui.main.progress.ProgressViewModel" />
+            type="com.mackenzie.downhub.ui.main.progress.ProgressViewModel" />
 
         <variable
             name="mainViewModel"
-            type="com.mackenzie.ui.main.home.MainViewModel" />
+            type="com.mackenzie.downhub.ui.main.home.MainViewModel" />
 
         <variable
             name="adapter"
-            type="com.mackenzie.ui.component.adapter.ProgressAdapter" />
+            type="com.mackenzie.downhub.ui.component.adapter.ProgressAdapter" />
 
     </data>
 

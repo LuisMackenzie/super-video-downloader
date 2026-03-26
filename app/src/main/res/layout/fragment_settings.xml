@@ -6,12 +6,12 @@
     <data>
 
         <import type="android.view.View" />
-        <import type="com.mackenzie.R" />
+        <import type="com.mackenzie.downhub.R" />
 
 
         <variable
             name="viewModel"
-            type="com.mackenzie.ui.main.settings.SettingsViewModel" />
+            type="com.mackenzie.downhub.ui.main.settings.SettingsViewModel" />
     </data>
 
     <ScrollView

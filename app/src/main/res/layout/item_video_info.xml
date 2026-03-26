@@ -6,15 +6,15 @@
 
         <variable
             name="videoInfo"
-            type="com.mackenzie.data.local.room.entity.VideoInfo" />
+            type="com.mackenzie.downhub.data.local.room.entity.VideoInfo" />
 
         <variable
             name="dialogListener"
-            type="com.mackenzie.ui.component.adapter.DownloadTabListener" />
+            type="com.mackenzie.downhub.ui.component.adapter.DownloadTabListener" />
 
         <variable
             name="viewModel"
-            type="com.mackenzie.ui.main.home.browser.detectedVideos.VideoDetectionTabViewModel" />
+            type="com.mackenzie.downhub.ui.main.home.browser.detectedVideos.VideoDetectionTabViewModel" />
 
     </data>
 
