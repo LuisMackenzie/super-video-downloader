@@ -7,11 +7,11 @@
 
         <variable
             name="proxy"
-            type="com.myAllVideoBrowser.data.local.model.Proxy" />
+            type="com.mackenzie.data.local.model.Proxy" />
 
         <variable
             name="proxiesListener"
-            type="com.myAllVideoBrowser.ui.component.adapter.ProxiesListener" />
+            type="com.mackenzie.ui.component.adapter.ProxiesListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

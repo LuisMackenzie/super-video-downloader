@@ -8,11 +8,11 @@
 
         <variable
             name="webTab"
-            type="com.myAllVideoBrowser.ui.main.home.browser.webTab.WebTab" />
+            type="com.mackenzie.ui.main.home.browser.webTab.WebTab" />
 
         <variable
             name="tabListener"
-            type="com.myAllVideoBrowser.ui.component.adapter.WebTabsListener" />
+            type="com.mackenzie.ui.component.adapter.WebTabsListener" />
 
     </data>
 

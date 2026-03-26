@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.myAllVideoBrowser.ui.main.home.MainViewModel" />
+            type="com.mackenzie.ui.main.home.MainViewModel" />
 
     </data>
 

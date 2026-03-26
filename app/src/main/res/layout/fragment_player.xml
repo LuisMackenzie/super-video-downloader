@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.myAllVideoBrowser.ui.main.player.VideoPlayerViewModel" />
+            type="com.mackenzie.ui.main.player.VideoPlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

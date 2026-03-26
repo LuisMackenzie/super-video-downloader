@@ -55,7 +55,7 @@ val abiCodes = mapOf(
 // =========================================================================
 
 android {
-    namespace = "com.myAllVideoBrowser"
+    namespace = "com.mackenzie"
     compileSdk = libs.versions.targetSdk.get().toInt()
     ndkVersion = configuredNdkVersion
 

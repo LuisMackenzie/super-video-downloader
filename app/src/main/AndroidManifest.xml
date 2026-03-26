@@ -25,7 +25,7 @@
         android:theme="@style/Theme.App.Starting">
 
         <activity
-            android:name="com.myAllVideoBrowser.ui.main.home.MainActivity"
+            android:name="com.mackenzie.ui.main.home.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:hardwareAccelerated="true"
@@ -51,13 +51,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.myAllVideoBrowser.ui.main.player.VideoPlayerActivity"
+            android:name="com.mackenzie.ui.main.player.VideoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:theme="@style/AppTheme" />
 
         <service
-            android:name="com.myAllVideoBrowser.util.proxy_utils.ProxyService"
+            android:name="com.mackenzie.util.proxy_utils.ProxyService"
             android:exported="false"
             android:foregroundServiceType="specialUse" />
 
@@ -81,7 +81,7 @@
             tools:node="remove" />
 
         <receiver
-            android:name="com.myAllVideoBrowser.util.downloaders.NotificationReceiver"
+            android:name="com.mackenzie.util.downloaders.NotificationReceiver"
             android:enabled="true" />
     </application>
 

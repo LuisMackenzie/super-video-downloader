@@ -6,12 +6,12 @@
     <data>
 
         <import type="android.view.View" />
-        <import type="com.myAllVideoBrowser.R" />
+        <import type="com.mackenzie.R" />
 
 
         <variable
             name="viewModel"
-            type="com.myAllVideoBrowser.ui.main.settings.SettingsViewModel" />
+            type="com.mackenzie.ui.main.settings.SettingsViewModel" />
     </data>
 
     <ScrollView

@@ -7,15 +7,15 @@
 
         <import type="android.view.View" />
 
-        <import type="com.myAllVideoBrowser.ui.main.proxies.ProxiesViewModel.SecureDnsProvider" />
+        <import type="com.mackenzie.ui.main.proxies.ProxiesViewModel.SecureDnsProvider" />
 
         <variable
             name="viewModel"
-            type="com.myAllVideoBrowser.ui.main.proxies.ProxiesViewModel" />
+            type="com.mackenzie.ui.main.proxies.ProxiesViewModel" />
 
         <variable
             name="listener"
-            type="com.myAllVideoBrowser.ui.component.adapter.ProxiesListener" />
+            type="com.mackenzie.ui.component.adapter.ProxiesListener" />
     </data>
 
     <LinearLayout
