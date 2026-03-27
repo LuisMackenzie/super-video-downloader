@@ -53,8 +53,8 @@ func getController() *lib.CoreController {
 	return controller
 }
 
-//export Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayRun
-func Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayRun(env *C.JNIEnv, class C.jclass, jConfig C.jstring) C.jlong {
+//export Java_com_mackenzie_downhub_v2ray_V2Ray_XrayRun
+func Java_com_mackenzie_downhub_v2ray_V2Ray_XrayRun(env *C.JNIEnv, class C.jclass, jConfig C.jstring) C.jlong {
 	cConfig := C.get_string_utf_chars(env, jConfig)
 	defer C.release_string_utf_chars(env, jConfig, cConfig)
 
@@ -66,22 +66,22 @@ func Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayRun(env *C.JNIEnv, class C.jclas
 	return 0
 }
 
-//export Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayStop
-func Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayStop(env *C.JNIEnv, class C.jclass) C.jlong {
+//export Java_com_mackenzie_downhub_v2ray_V2Ray_XrayStop
+func Java_com_mackenzie_downhub_v2ray_V2Ray_XrayStop(env *C.JNIEnv, class C.jclass) C.jlong {
 	getController().StopLoop()
 	return 0
 }
 
-//export Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayIsRunning
-func Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayIsRunning(env *C.JNIEnv, class C.jclass) C.jlong {
+//export Java_com_mackenzie_downhub_v2ray_V2Ray_XrayIsRunning
+func Java_com_mackenzie_downhub_v2ray_V2Ray_XrayIsRunning(env *C.JNIEnv, class C.jclass) C.jlong {
 	if getController().IsRunning {
 		return 1
 	}
 	return 0
 }
 
-//export Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayMeasure
-func Java_com_myAllVideoBrowser_v2ray_V2Ray_XrayMeasure(env *C.JNIEnv, class C.jclass, jConfig C.jstring, jUrl C.jstring) C.jlong {
+//export Java_com_mackenzie_downhub_v2ray_V2Ray_XrayMeasure
+func Java_com_mackenzie_downhub_v2ray_V2Ray_XrayMeasure(env *C.JNIEnv, class C.jclass, jConfig C.jstring, jUrl C.jstring) C.jlong {
 	cConfig := C.get_string_utf_chars(env, jConfig)
 	defer C.release_string_utf_chars(env, jConfig, cConfig)
 	goConfig := C.GoString(cConfig)
