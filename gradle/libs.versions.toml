@@ -217,6 +217,7 @@ testing = ["junit", "mockitoCore", "mockitoAndroid", "mockitoKotlin", "espressoC
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "gradlePlugin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
