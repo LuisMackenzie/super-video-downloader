@@ -6,6 +6,7 @@ import org.gradle.process.ExecOperations
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.allopen)
     alias(libs.plugins.kotlin.serialization)
@@ -164,6 +165,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 
     // Test Options
@@ -236,6 +238,17 @@ dependencies {
     implementation(libs.workMultiprocess)
     implementation(libs.fragmentKtx)
     implementation(libs.concurrentFuturesKtx)
+
+    // Compose libraries
+    // implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
 
     // Lifecycle Components
     implementation(libs.lifecycleExtensions)
