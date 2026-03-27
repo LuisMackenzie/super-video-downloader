@@ -1,4 +1,4 @@
-package com.mackenzie
+package com.mackenzie.downhub
 
 @Target(AnnotationTarget.ANNOTATION_CLASS)
 annotation class OpenClass
