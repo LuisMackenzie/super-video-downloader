@@ -142,6 +142,8 @@ android {
             isShrinkResources = false
             enableUnitTestCoverage = false
             enableAndroidTestCoverage = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
         }
         release {
             enableUnitTestCoverage = false
