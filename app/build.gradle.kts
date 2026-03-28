@@ -30,7 +30,7 @@ kotlin {
 }
 
 allOpen {
-    annotation("com.myAllVideoBrowser.OpenForTesting")
+    annotation("com.mackenzie.downhub.OpenForTesting")
 }
 
 jacoco {
