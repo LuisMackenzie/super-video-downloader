@@ -12,6 +12,7 @@ import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.ui.main.home.browser.BrowserFragment
 import com.mackenzie.downhub.ui.main.home.browser.detectedVideos.DetectedVideosTabFragment
 import com.mackenzie.downhub.ui.main.home.browser.homeTab.BrowserHomeFragment
+import com.mackenzie.downhub.ui.main.home.newhome.HomeComposeFragment
 import com.mackenzie.downhub.ui.main.home.browser.webTab.WebTabFragment
 import com.mackenzie.downhub.ui.main.progress.ProgressFragment
 import com.mackenzie.downhub.ui.main.proxies.ProxiesFragment
@@ -30,6 +31,10 @@ abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun bindBrowserFragment(): BrowserFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun bindHomeComposeFragment(): HomeComposeFragment
 
     @FragmentScoped
     @ContributesAndroidInjector

@@ -1,6 +1,7 @@
 package com.mackenzie.downhub.util.fragment
 
 import androidx.fragment.app.Fragment
+import com.mackenzie.downhub.ui.main.home.newhome.HomeComposeFragment
 import com.mackenzie.downhub.ui.main.history.HistoryFragment
 import com.mackenzie.downhub.ui.main.home.browser.BrowserFragment
 import com.mackenzie.downhub.ui.main.home.browser.detectedVideos.DetectedVideosTabFragment
@@ -12,6 +13,7 @@ import com.mackenzie.downhub.ui.main.video.VideoFragment
 import javax.inject.Inject
 
 interface FragmentFactory {
+    fun createHomeFragment(): Fragment
     fun createBrowserFragment(): Fragment
     fun createProgressFragment(): Fragment
     fun createVideoFragment(): Fragment
@@ -26,6 +28,8 @@ interface FragmentFactory {
 }
 
 class FragmentFactoryImpl @Inject constructor() : FragmentFactory {
+    override fun createHomeFragment() = HomeComposeFragment.newInstance()
+
     override fun createBrowserFragment() = BrowserFragment.Companion.newInstance()
 
     override fun createProgressFragment() = ProgressFragment.Companion.newInstance()

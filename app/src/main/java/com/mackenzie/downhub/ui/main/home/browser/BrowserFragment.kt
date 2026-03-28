@@ -108,6 +108,7 @@ interface BrowserListener {
 }
 
 const val HOME_TAB_INDEX = 0
+private const val ROOT_BROWSER_INDEX = 1
 
 const val TAB_INDEX_KEY = "TAB_INDEX_KEY"
 
@@ -475,10 +476,10 @@ class BrowserFragment : BaseFragment(), BrowserServicesProvider {
 
     private fun onBackPressed() {
         val rootPagerIndex = mainActivity.mainViewModel.currentItem.get() ?: 0
-        if (rootPagerIndex > 0) {
-            mainActivity.mainViewModel.currentItem.set(HOME_TAB_INDEX)
+        if (rootPagerIndex != ROOT_BROWSER_INDEX) {
+            mainActivity.mainViewModel.currentItem.set(ROOT_BROWSER_INDEX)
         }
-        if (rootPagerIndex == HOME_TAB_INDEX) {
+        if (rootPagerIndex == ROOT_BROWSER_INDEX) {
             if (backPressedOnce) {
                 requireActivity().finish()
                 return

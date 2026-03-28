@@ -683,7 +683,7 @@ class WebTabFragment : BaseWebTabFragment() {
     }
 
     private fun handleOnBackPress() {
-        val isBrowserRoute = mainActivity.mainViewModel.currentItem.get() == 0
+        val isBrowserRoute = mainActivity.mainViewModel.currentItem.get() == 1
         val isCurrentTabSelected =
             currentTabIndexProvider.getCurrentTabIndex().get() == requireArguments().getInt(
                 TAB_INDEX_KEY
@@ -715,7 +715,7 @@ class WebTabFragment : BaseWebTabFragment() {
             val currentTabIndexSelected = currentTabIndexProvider.getCurrentTabIndex().get()
             val isCurrentTabSelected =
                 currentTabIndexSelected == requireArguments().getInt(TAB_INDEX_KEY)
-            val isBrowserRoute = indexRoute == 0
+            val isBrowserRoute = indexRoute == 1
             val isNotHomeTabSelected = currentTabIndexSelected != HOME_TAB_INDEX
             val isVisible = this@WebTabFragment.isVisible
             if (isBrowserRoute && isNotHomeTabSelected && isCurrentTabSelected && isVisible) {

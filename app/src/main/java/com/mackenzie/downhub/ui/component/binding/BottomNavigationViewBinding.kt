@@ -10,9 +10,10 @@ object BottomNavigationViewBinding {
     @JvmStatic
     fun BottomNavigationView.setSelectedItemId(position: Int) {
         selectedItemId = when (position) {
-            0 -> R.id.tab_browser
-            1 -> R.id.tab_progress
-            2 -> R.id.tab_video
+            0 -> R.id.tab_home
+            1 -> R.id.tab_browser
+            2 -> R.id.tab_progress
+            3 -> R.id.tab_video
             else -> R.id.tab_settings
         }
     }

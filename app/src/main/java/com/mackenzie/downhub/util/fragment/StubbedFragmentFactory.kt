@@ -3,6 +3,8 @@ package com.mackenzie.downhub.util.fragment
 import androidx.fragment.app.Fragment
 
 class StubbedFragmentFactory : FragmentFactory {
+    override fun createHomeFragment() = Fragment()
+
     override fun createBrowserFragment() = Fragment()
 
     override fun createProgressFragment() = Fragment()

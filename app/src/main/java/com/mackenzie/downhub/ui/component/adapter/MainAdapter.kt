@@ -14,14 +14,15 @@ class MainAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> fragmentFactory.createBrowserFragment()
-            1 -> fragmentFactory.createProgressFragment()
-            2 -> fragmentFactory.createVideoFragment()
+            0 -> fragmentFactory.createHomeFragment()
+            1 -> fragmentFactory.createBrowserFragment()
+            2 -> fragmentFactory.createProgressFragment()
+            3 -> fragmentFactory.createVideoFragment()
             else -> fragmentFactory.createVideoFragment()
         }
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 }

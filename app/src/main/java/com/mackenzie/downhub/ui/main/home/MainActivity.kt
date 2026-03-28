@@ -86,17 +86,19 @@ class MainActivity : BaseActivity() {
         dataBinding.viewPager.adapter = mainAdapter
         dataBinding.viewPager.registerOnPageChangeCallback(onPageChangeListener)
         dataBinding.bottomBar.setOnItemSelectedListener { menuItem ->
-            val isBrowser = mainViewModel.currentItem.get() == 0
+            val isBrowser = mainViewModel.currentItem.get() == 1
             var goingToBrowser = false
             when (menuItem.itemId) {
+                R.id.tab_home -> mainViewModel.currentItem.set(0)
+
                 R.id.tab_browser -> {
-                    mainViewModel.currentItem.set(0)
+                    mainViewModel.currentItem.set(1)
                     goingToBrowser = true
                 }
 
-                R.id.tab_progress -> mainViewModel.currentItem.set(1)
-                R.id.tab_video -> mainViewModel.currentItem.set(2)
-                else -> mainViewModel.currentItem.set(3)
+                R.id.tab_progress -> mainViewModel.currentItem.set(2)
+                R.id.tab_video -> mainViewModel.currentItem.set(3)
+                else -> mainViewModel.currentItem.set(4)
             }
 
             if (isBrowser && goingToBrowser && mainViewModel.isBrowserCurrent.get()) {
@@ -144,9 +146,9 @@ class MainActivity : BaseActivity() {
                     false
                 )
             ) {
-                dataBinding.viewPager.currentItem = 1
-            } else {
                 dataBinding.viewPager.currentItem = 2
+            } else {
+                dataBinding.viewPager.currentItem = 3
             }
 
             if (intent.hasExtra(YoutubeDlDownloaderWorker.Companion.DOWNLOAD_FILENAME_KEY)) {
@@ -160,7 +162,7 @@ class MainActivity : BaseActivity() {
             }
         } else {
             if (intent?.hasExtra(YoutubeDlDownloaderWorker.Companion.IS_FINISHED_DOWNLOAD_ACTION_KEY) == true) {
-                dataBinding.viewPager.currentItem = 1
+                dataBinding.viewPager.currentItem = 2
             } else {
                 dataBinding.viewPager.currentItem = 0
             }
@@ -193,7 +195,7 @@ class MainActivity : BaseActivity() {
         }
 
         override fun onPageSelected(postion: Int) {
-            if (postion == 0) {
+            if (postion == 1) {
                 // Если без этого, дровер отркрываетс когда не надо
                 Handler(Looper.getMainLooper()).postDelayed({
                     mainViewModel.isBrowserCurrent.set(true)
@@ -206,10 +208,10 @@ class MainActivity : BaseActivity() {
             if (childrenCount > 0) {
                 supportFragmentManager.popBackStack()
             }
-            if (postion > 0) {
-                dataBinding.viewPager.isUserInputEnabled = true
-            } else {
+            if (postion == 1) {
                 dataBinding.viewPager.isUserInputEnabled = false
+            } else {
+                dataBinding.viewPager.isUserInputEnabled = true
             }
 
             mainViewModel.currentItem.set(postion)
