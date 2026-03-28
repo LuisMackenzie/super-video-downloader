@@ -117,8 +117,8 @@ android {
         applicationId = "com.mackenzie.downhub"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 193
-        versionName = "0.8.15"
+        versionCode = 1
+        versionName = "0.9.0"
 
         if (splitApks) {
             splits {
