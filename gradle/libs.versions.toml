@@ -26,6 +26,7 @@ workMultiprocess = "2.11.1"
 # Compose
 activityCompose = "1.13.0"
 composeBom = "2026.03.01"
+coilCompose = "3.4.0"
 
 # AndroidX Fragment
 fragmentKtx = "1.8.9"
@@ -192,6 +193,11 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
+
+# Coil Compose
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-gif = { module = "io.coil-kt.coil3:coil-gif", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 # Other Dependencies
 youtubedl = { module = "io.github.junkfood02.youtubedl-android:library", version.ref = "youtubedl" }
