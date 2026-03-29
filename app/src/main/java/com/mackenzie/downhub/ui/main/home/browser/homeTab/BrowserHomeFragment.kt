@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.mackenzie.downhub.data.local.model.Suggestion
 import com.mackenzie.downhub.data.local.room.entity.PageInfo
@@ -22,6 +22,7 @@ import com.mackenzie.downhub.ui.main.home.browser.BrowserListener
 import com.mackenzie.downhub.ui.main.home.browser.TabManagerProvider
 import com.mackenzie.downhub.ui.main.home.browser.webTab.WebTabFactory
 import com.mackenzie.downhub.util.AppUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,14 +44,12 @@ interface BrowserHomeListener : BrowserListener {
     }
 }
 
+@AndroidEntryPoint
 class BrowserHomeFragment : BaseWebTabFragment() {
 
     companion object {
         fun newInstance() = BrowserHomeFragment()
     }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var appUtil: AppUtil
@@ -59,7 +58,7 @@ class BrowserHomeFragment : BaseWebTabFragment() {
 
     private lateinit var openPageIProvider: TabManagerProvider
 
-    private lateinit var homeViewModel: BrowserHomeViewModel
+    private val homeViewModel: BrowserHomeViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
 
@@ -72,7 +71,6 @@ class BrowserHomeFragment : BaseWebTabFragment() {
         savedInstanceState: Bundle?
     ): View {
         mainViewModel = mainActivity.mainViewModel
-        homeViewModel = ViewModelProvider(this, viewModelFactory)[BrowserHomeViewModel::class.java]
         openPageIProvider = mainActivity.mainViewModel.browserServicesProvider!!
 
         topPageAdapter = TopPageAdapter(requireContext(), emptyList(), itemListener)

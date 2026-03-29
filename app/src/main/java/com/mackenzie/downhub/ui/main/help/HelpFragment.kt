@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import com.mackenzie.downhub.databinding.FragmentHelpBinding
 import com.mackenzie.downhub.ui.main.base.BaseFragment
-import com.mackenzie.downhub.ui.main.home.MainActivity
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HelpFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentHelpBinding
-
-    @Inject
-    lateinit var mainActivity: MainActivity
 
     companion object {
         @JvmStatic

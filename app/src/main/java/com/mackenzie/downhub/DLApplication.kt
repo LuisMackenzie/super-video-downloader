@@ -1,11 +1,11 @@
 package com.mackenzie.downhub
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.mackenzie.downhub.di.component.DaggerAppComponent
 import com.mackenzie.downhub.util.AppLogger
 import com.mackenzie.downhub.util.ContextUtils
 import com.mackenzie.downhub.util.FileUtil
@@ -15,8 +15,7 @@ import com.mackenzie.downhub.util.proxy_utils.ProxyService
 import com.yausername.ffmpeg.FFmpeg
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLException
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,13 +23,12 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-open class DLApplication : DaggerApplication() {
+@HiltAndroidApp
+open class DLApplication : Application() {
     companion object {
         const val DEBUG_TAG: String = "YOUTUBE_DL_DEBUG_TAG"
         var isProxyServiceStarted = false
     }
-
-    private lateinit var androidInjector: AndroidInjector<out DaggerApplication>
 
     @Inject
     lateinit var workerFactory: DaggerWorkerFactory
@@ -40,15 +38,6 @@ open class DLApplication : DaggerApplication() {
 
     @Inject
     lateinit var fileUtil: FileUtil
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-
-        androidInjector = DaggerAppComponent.builder().application(this).build()
-    }
-
-    public override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        androidInjector
 
     override fun onCreate() {
         super.onCreate()
@@ -123,5 +112,4 @@ open class DLApplication : DaggerApplication() {
             AppLogger.Companion.e("Failed to start ProxyService: ${e.message}")
         }
     }
-
 }

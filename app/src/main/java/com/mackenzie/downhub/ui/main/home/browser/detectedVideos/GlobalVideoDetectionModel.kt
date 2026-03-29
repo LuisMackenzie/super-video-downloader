@@ -15,8 +15,10 @@ import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import com.mackenzie.downhub.util.scheduler.BaseSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import okhttp3.Request
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class GlobalVideoDetectionModel @Inject constructor(
     private val videoRepository: VideoRepository,
     private val baseSchedulers: BaseSchedulers,

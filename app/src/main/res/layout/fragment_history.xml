@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:visibility="@{viewModel.isLoadingHistory() ? View.GONE : View.VISIBLE}"
-                    app:items="@{viewModel.historyItems}"
+                    app:items="@{viewModel.historyItems.get()}"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
                     android:id="@+id/history_search_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:items="@{viewModel.searchHistoryItems}" />
+                    app:items="@{viewModel.searchHistoryItems.get()}" />
             </com.google.android.material.search.SearchView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -22,9 +22,12 @@ import com.mackenzie.downhub.data.repository.VideoRepository
 import com.mackenzie.downhub.data.repository.VideoRepositoryImpl
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
     @Singleton

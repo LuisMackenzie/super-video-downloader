@@ -15,7 +15,7 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.core.view.get
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.color.MaterialColors
@@ -33,12 +33,14 @@ import com.mackenzie.downhub.ui.main.progress.WrapContentLinearLayoutManager
 import com.mackenzie.downhub.util.AppUtil
 import com.mackenzie.downhub.util.FileUtil
 import com.mackenzie.downhub.util.IntentUtil
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 import javax.inject.Inject
 
 //@OpenForTesting
+@AndroidEntryPoint
 class VideoFragment : BaseFragment() {
 
     companion object {
@@ -46,9 +48,6 @@ class VideoFragment : BaseFragment() {
     }
 
     private var disposable: Disposable? = null
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var intentUtil: IntentUtil
@@ -59,19 +58,17 @@ class VideoFragment : BaseFragment() {
     @Inject
     lateinit var appUtil: AppUtil
 
-    @Inject
-    lateinit var mainActivity: MainActivity
+    private val mainActivity get() = requireActivity() as MainActivity
 
     private lateinit var dataBinding: FragmentVideoBinding
 
-    private lateinit var videoViewModel: VideoViewModel
+    private val videoViewModel: VideoViewModel by viewModels()
 
     private lateinit var videoAdapter: VideoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        videoViewModel = ViewModelProvider(this, viewModelFactory)[VideoViewModel::class.java]
         videoAdapter = VideoAdapter(emptyList(), videoListener, fileUtil)
 
         val isDark = mainActivity.settingsViewModel.isDarkMode.get()

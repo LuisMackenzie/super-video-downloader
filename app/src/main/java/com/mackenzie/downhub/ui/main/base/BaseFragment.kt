@@ -4,11 +4,11 @@ import android.graphics.Color
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.color.MaterialColors
 import com.mackenzie.downhub.R
-import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment : DaggerFragment() {
+abstract class BaseFragment : Fragment() {
     fun fixPopup(container: FrameLayout, popupSource: View): View {
         val myView = View(container.context)
 

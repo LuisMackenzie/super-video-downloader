@@ -15,9 +15,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 //@OpenForTesting
+@HiltViewModel
 class VideoViewModel @Inject constructor(
     private val fileUtil: FileUtil,
 ) : BaseViewModel() {

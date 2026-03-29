@@ -96,7 +96,7 @@
                 android:singleLine="true"
                 android:text="@{viewModel.searchTextInput}"
                 android:textSize="@dimen/text_small"
-                app:items="@{viewModel.listSuggestions}"
+                app:items="@{viewModel.listSuggestions.get()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -129,7 +129,7 @@
             android:numColumns="4"
             android:padding="4dp"
             android:verticalSpacing="4dp"
-            app:items="@{mainVModel.bookmarksList}" />
+            app:items="@{mainVModel.bookmarksList.get()}" />
 
 
         <LinearLayout

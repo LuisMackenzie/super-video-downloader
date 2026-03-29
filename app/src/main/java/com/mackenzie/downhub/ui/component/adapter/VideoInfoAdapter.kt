@@ -1,3 +1,5 @@
+package com.mackenzie.downhub.ui.component.adapter
+
 import com.mackenzie.downhub.ui.component.adapter.CandidatesListRecyclerViewAdapter
 import com.mackenzie.downhub.ui.component.adapter.DownloadTabListener
 import android.annotation.SuppressLint

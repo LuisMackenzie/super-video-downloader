@@ -10,12 +10,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.mackenzie.downhub.DLApplication
 import com.mackenzie.downhub.R
@@ -28,16 +28,15 @@ import com.mackenzie.downhub.util.SharedPrefHelper
 import com.mackenzie.downhub.util.downloaders.youtubedl_downloader.YoutubeDlDownloaderWorker
 import com.mackenzie.downhub.util.fragment.FragmentFactory
 import com.mackenzie.downhub.util.scheduler.BaseSchedulers
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 //@OpenForTesting
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var fragmentFactory: FragmentFactory
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var baseSchedulers: BaseSchedulers
@@ -45,11 +44,9 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
 
-    lateinit var mainViewModel: MainViewModel
-
-    lateinit var proxiesViewModel: ProxiesViewModel
-
-    lateinit var settingsViewModel: SettingsViewModel
+    internal val mainViewModel: MainViewModel by viewModels()
+    internal val proxiesViewModel: ProxiesViewModel by viewModels()
+    internal val settingsViewModel: SettingsViewModel by viewModels()
 
     private lateinit var dataBinding: ActivityMainBinding
 
@@ -75,10 +72,6 @@ class MainActivity : BaseActivity() {
         (applicationContext as? DLApplication)?.startProxyService()
 
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        proxiesViewModel = ViewModelProvider(this, viewModelFactory)[ProxiesViewModel::class.java]
-        settingsViewModel = ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
 
         mainAdapter = MainAdapter(supportFragmentManager, lifecycle, fragmentFactory)
 

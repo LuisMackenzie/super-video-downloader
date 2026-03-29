@@ -12,6 +12,7 @@ import com.mackenzie.downhub.ui.main.base.BaseViewModel
 import com.mackenzie.downhub.ui.main.home.browser.BrowserServicesProvider
 import com.mackenzie.downhub.util.FaviconUtils
 import com.mackenzie.downhub.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 //@OpenForTesting
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val topPagesRepository: TopPagesRepository,
 ) : BaseViewModel() {

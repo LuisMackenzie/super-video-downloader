@@ -9,12 +9,14 @@ import com.mackenzie.downhub.data.remote.service.ConfigService
 import com.mackenzie.downhub.data.remote.service.VideoService
 import com.mackenzie.downhub.data.remote.service.VideoServiceSuperX
 import com.mackenzie.downhub.data.remote.service.VideoServiceLocal
-import com.mackenzie.downhub.di.qualifier.ApplicationContext
 import com.mackenzie.downhub.util.Memory
 import com.mackenzie.downhub.util.proxy_utils.CustomProxyController
 import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -25,6 +27,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     companion object {

@@ -5,14 +5,14 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mackenzie.downhub.di.qualifier.ApplicationContext
 import com.mackenzie.downhub.util.AppLogger
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class PlaybackStateRepository @Inject constructor(
-    @param:ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context
 ) {
     companion object {
         const val PREFS_NAME = "playback_state_prefs"

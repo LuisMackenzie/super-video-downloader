@@ -6,7 +6,9 @@ import android.view.WindowManager
 import com.mackenzie.downhub.R
 import com.mackenzie.downhub.ui.main.base.BaseActivity
 import com.mackenzie.downhub.util.ext.addFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VideoPlayerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

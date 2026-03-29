@@ -10,7 +10,6 @@ import android.widget.SeekBar
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Observable
-import androidx.lifecycle.ViewModelProvider
 import com.mackenzie.downhub.R
 import com.mackenzie.downhub.databinding.FragmentSettingsBinding
 import com.mackenzie.downhub.ui.main.base.BaseFragment
@@ -18,8 +17,10 @@ import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.util.FileUtil
 import com.mackenzie.downhub.util.IntentUtil
 import com.mackenzie.downhub.util.SystemUtil
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : BaseFragment() {
 
     companion object {
@@ -35,11 +36,7 @@ class SettingsFragment : BaseFragment() {
     @Inject
     lateinit var systemUtil: SystemUtil
 
-    @Inject
-    lateinit var mainActivity: MainActivity
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val mainActivity get() = requireActivity() as MainActivity
 
     private lateinit var dataBinding: FragmentSettingsBinding
     private lateinit var settingsViewModel: SettingsViewModel

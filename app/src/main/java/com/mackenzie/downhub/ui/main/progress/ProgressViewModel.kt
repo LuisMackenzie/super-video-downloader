@@ -21,9 +21,11 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 //@OpenForTesting
+@HiltViewModel
 class ProgressViewModel @Inject constructor(
     private val fileUtil: FileUtil,
     private val progressRepository: ProgressRepository,

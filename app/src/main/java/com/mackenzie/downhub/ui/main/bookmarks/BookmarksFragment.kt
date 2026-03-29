@@ -17,14 +17,14 @@ import com.mackenzie.downhub.ui.main.base.BaseFragment
 import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.ui.main.home.browser.webTab.WebTabFactory
 import com.mackenzie.downhub.ui.main.progress.WrapContentLinearLayoutManager
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookmarksFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentBookmarksBinding
 
-    @Inject
-    lateinit var mainActivity: MainActivity
+    private val mainActivity get() = requireActivity() as MainActivity
 
     private lateinit var bookmarksAdapter: BookmarksAdapter
 

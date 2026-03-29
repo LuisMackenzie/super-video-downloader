@@ -8,10 +8,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.allopen)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.coveralls)
-    kotlin("kapt")
     id("jacoco")
 }
 
@@ -263,12 +263,11 @@ dependencies {
     implementation(libs.roomGuava)
     ksp(libs.roomCompiler)
 
-    // Dagger 2 - Dependency Injection
-    implementation(libs.daggerRuntime)
-    implementation(libs.daggerAndroid)
-    implementation(libs.daggerAndroidSupport)
-    ksp(libs.daggerCompiler)
-    ksp(libs.daggerAndroidProcessor)
+    // Hilt - Dependency Injection
+    implementation(libs.hiltAndroid)
+    ksp(libs.hiltCompiler)
+    implementation(libs.hiltWork)
+    ksp(libs.hiltWorkCompiler)
 
     // Network - OkHttp & Retrofit
     implementation(libs.okHttpRuntime)

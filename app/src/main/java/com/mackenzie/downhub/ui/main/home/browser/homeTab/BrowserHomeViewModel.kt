@@ -16,8 +16,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class BrowserHomeViewModel @Inject constructor(
     private val okHttpClient: OkHttpProxyClient,
     private val baseSchedulers: BaseSchedulers,
@@ -50,7 +52,7 @@ class BrowserHomeViewModel @Inject constructor(
         suggestionJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 withContext(this.coroutineContext) {
-                    val list = getListSuggestions().blockingFirst()
+                    val list = fetchSuggestions().blockingFirst()
                     if (list.size > 50) {
                         listSuggestions.set(list.subList(0, 50).toMutableList())
                     } else {
@@ -63,7 +65,7 @@ class BrowserHomeViewModel @Inject constructor(
         }
     }
 
-    private fun getListSuggestions(): Flowable<List<Suggestion>> {
+    private fun fetchSuggestions(): Flowable<List<Suggestion>> {
         return Flowable.combineLatest(
             homePublishSubject.debounce(300, TimeUnit.MILLISECONDS)
                 .toFlowable(BackpressureStrategy.LATEST), SuggestionsUtils.Companion.getSuggestions(

@@ -14,8 +14,10 @@ import com.mackenzie.downhub.util.proxy_utils.ProxyService
 import com.mackenzie.downhub.util.proxy_utils.proxy_manager.ProxyHop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ProxiesViewModel @Inject constructor(
     private val proxyController: CustomProxyController,
     private val sharedPrefHelper: SharedPrefHelper

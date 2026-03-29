@@ -137,7 +137,7 @@
                             android:singleLine="true"
                             android:text="@{viewModel.getTabTextInput()}"
                             android:textSize="@dimen/text_small"
-                            app:items="@{viewModel.listTabSuggestions}"
+                            app:items="@{viewModel.listTabSuggestions.get()}"
                             app:layout_constraintEnd_toStartOf="@+id/browser_menu_container"
                             app:layout_constraintStart_toEndOf="@+id/buttons_block"
                             app:layout_constraintTop_toTopOf="parent" />
