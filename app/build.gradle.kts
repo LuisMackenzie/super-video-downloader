@@ -250,6 +250,11 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
 
+    // Coil libraries
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
+    implementation(libs.coil.network.okhttp)
+
     // Lifecycle Components
     implementation(libs.lifecycleExtensions)
     implementation(libs.lifecycleCommonJava8)
