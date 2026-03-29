@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mackenzie.downhub.ui.main.base.BaseFragment
+import com.mackenzie.downhub.ui.theme.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,22 +33,18 @@ class HomeComposeFragment : BaseFragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                HomeComposeScreen()
+                // HomeComposeScreen()
+                LaunchHomeVideoHub()
             }
         }
     }
 }
 
 @Composable
-private fun HomeComposeScreen() {
-    MaterialTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(text = "Home")
-            }
+private fun LaunchHomeVideoHub() {
+    MainTheme {
+        VideoHubScreenContent() { serverId, serverUrl ->
+            // navController.navigate(route= NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
         }
     }
 }
