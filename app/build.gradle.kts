@@ -234,6 +234,7 @@ dependencies {
 
     // Coroutines & Work Manager
     implementation(libs.workRuntimeKtx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.workRxjava3)
     implementation(libs.workMultiprocess)
     implementation(libs.fragmentKtx)

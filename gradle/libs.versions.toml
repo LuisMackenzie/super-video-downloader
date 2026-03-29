@@ -19,6 +19,7 @@ coreSplashscreen = "1.2.0"
 legacySupportV4 = "1.0.0"
 
 # AndroidX Work
+lifecycleRuntimeKtx = "2.10.0"
 workRuntime = "2.11.1"
 workRxjava = "2.11.1"
 workMultiprocess = "2.11.1"
@@ -123,6 +124,7 @@ coreSplashscreen = { module = "androidx.core:core-splashscreen", version.ref = "
 legacySupportV4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
 
 # AndroidX Work
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
 workRxjava3 = { module = "androidx.work:work-rxjava3", version.ref = "workRxjava" }
 workMultiprocess = { module = "androidx.work:work-multiprocess", version.ref = "workMultiprocess" }
