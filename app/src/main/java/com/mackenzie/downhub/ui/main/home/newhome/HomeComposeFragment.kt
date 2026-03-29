@@ -33,7 +33,6 @@ class HomeComposeFragment : BaseFragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                // HomeComposeScreen()
                 LaunchHomeVideoHub()
             }
         }
