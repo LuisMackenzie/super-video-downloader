@@ -273,6 +273,12 @@ class WebTabFragment : BaseWebTabFragment() {
         )
     }
 
+    override fun onDestroyView() {
+        AppLogger.d("onDestroyView Webview::::::::: ${webTab.getUrl()}")
+        mainActivity.mainViewModel.currentItem.removeOnPropertyChangedCallback(changeRouteCallBack)
+        super.onDestroyView()
+    }
+
     override fun onDestroy() {
         AppLogger.Companion.d("onDestroy Webview::::::::: ${webTab.getUrl()}")
         super.onDestroy()
