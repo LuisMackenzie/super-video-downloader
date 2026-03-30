@@ -10,7 +10,7 @@
     <item
         android:id="@+id/tab_browser"
         android:enabled="true"
-        android:icon="@drawable/tab_group_24px"
+        android:icon="@drawable/ic_browser"
         android:title="Browser"
         app:showAsAction="ifRoom" />
     <item
