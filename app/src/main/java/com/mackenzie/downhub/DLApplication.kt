@@ -6,11 +6,16 @@ import android.content.Intent
 import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.SingletonImageLoader
+import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import com.mackenzie.downhub.util.AppLogger
 import com.mackenzie.downhub.util.ContextUtils
 import com.mackenzie.downhub.util.FileUtil
 import com.mackenzie.downhub.util.SharedPrefHelper
 import com.mackenzie.downhub.util.downloaders.generic_downloader.DaggerWorkerFactory
+import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import com.mackenzie.downhub.util.proxy_utils.ProxyService
 import com.yausername.ffmpeg.FFmpeg
 import com.yausername.youtubedl_android.YoutubeDL
@@ -24,7 +29,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltAndroidApp
-open class DLApplication : Application() {
+open class DLApplication : Application(), SingletonImageLoader.Factory {
     companion object {
         const val DEBUG_TAG: String = "YOUTUBE_DL_DEBUG_TAG"
         var isProxyServiceStarted = false
@@ -38,6 +43,9 @@ open class DLApplication : Application() {
 
     @Inject
     lateinit var fileUtil: FileUtil
+
+    @Inject
+    lateinit var okHttpProxyClient: OkHttpProxyClient
 
     override fun onCreate() {
         super.onCreate()
@@ -93,6 +101,14 @@ open class DLApplication : Application() {
         } catch (e: Throwable) {
             e.printStackTrace()
         }
+    }
+
+    override fun newImageLoader(context: PlatformContext): ImageLoader {
+        return ImageLoader.Builder(context)
+            .components {
+                add(OkHttpNetworkFetcherFactory(callFactory = { okHttpProxyClient.getProxyOkHttpClient() }))
+            }
+            .build()
     }
 
     fun startProxyService() {
