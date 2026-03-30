@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun MainTheme(content: @Composable () -> Unit) {
-    VideoHubTheme(darkTheme = false) {
+    VideoHubTheme(darkTheme = true) {
         Surface(color = MaterialTheme.colorScheme.background) {
             content()
         }
