@@ -18,6 +18,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.OptIn
 import androidx.core.app.ShareCompat
 import androidx.databinding.Observable
 import androidx.fragment.app.FragmentContainerView
@@ -26,6 +27,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.util.UnstableApi
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mackenzie.downhub.R
@@ -308,6 +310,7 @@ class WebTabFragment : BaseWebTabFragment() {
         }
     }
 
+    @OptIn(UnstableApi::class)
     private fun onVideoPreviewPropagate(
         videoInfo: VideoInfo, format: String, isForce: Boolean
     ) {
