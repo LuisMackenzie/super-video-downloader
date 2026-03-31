@@ -26,6 +26,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttp
 import java.io.File
 import javax.inject.Inject
 
@@ -50,6 +51,9 @@ open class DLApplication : Application(), SingletonImageLoader.Factory {
 
     override fun onCreate() {
         super.onCreate()
+
+        // OkHttp 5 needs explicit initialization when AndroidX Startup is disabled.
+        OkHttp.initialize(applicationContext)
 
         ContextUtils.initApplicationContext(applicationContext)
 
