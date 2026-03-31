@@ -1,5 +1,6 @@
 package com.mackenzie.downhub.ui.main.home.newhome
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -61,6 +62,7 @@ fun RenderServerItem(
                 .height(120.dp)
                 .background(MaterialTheme.colorScheme.background)
         ) {
+            Log.e("RenderServerItem", "Loading image: ${item.thumb}")
             AsyncImage(
                 model= ImageRequest.Builder(LocalContext.current)
                     .data(item.thumb)
@@ -71,6 +73,9 @@ fun RenderServerItem(
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.fillMaxSize(),
+                onError = {
+                    Log.e("RenderServerItem", "Error loading image: ${item.thumb}", it.result.throwable)
+                }
             )
 
             Text(
