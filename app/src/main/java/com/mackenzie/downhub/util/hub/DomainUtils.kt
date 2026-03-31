@@ -198,7 +198,6 @@ internal fun getServerUrlById(id: Int): String {
 internal fun getImageFromServerId(id: Int): String {
     return when (id) {
         1 -> "https://img.icons8.com/color/512/pornhub.png"  // PornHub
-//        2 -> "https://static.wikia.nocookie.net/logopedia/images/a/ad/RedTube_2007_logo.png/revision/latest/scale-to-width-down/284?cb=20230616170943" // RedTube
         2 -> "https://ei.rdtcdn.com/www-static/cdn_files/redtube/icons/favicon.png?v=e7d648c8fed98bfcee2fbbd6f050e99c53bca70a" // RedTube
         3 -> "https://lh3.googleusercontent.com/YrLQ2iF13cX-RBTf-0iM5gBcDm3woauAzoT-AmMXGhRq-R48iBALY5lSDSy8ciMaoGN9" // Beeg
         4 -> "https://www.blackhatworld.com/data/avatars/o/1814/1814745.jpg?1695663155" // Eporner
@@ -209,7 +208,6 @@ internal fun getImageFromServerId(id: Int): String {
         9 -> "https://thumbs.dreamstime.com/b/xvideos-pornographic-video-sharing-viewing-website-december-most-visited-pornographic-website-according-142175224.jpg" // XVideos
         10 -> "https://i.redd.it/83qah8xpljee1.jpg"  // XNXX
         11 -> "https://static.semrush.com/power-pages/media/favicons/tnaflix-com-favicon-dab11f7b.png"  // TNAFLix
-        // 12 -> "https://ih1.redbubble.net/image.5390711201.6861/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" // Blowjobs.pro
         12 -> "https://blowjobs.pro/favicon/android-icon-192x192.png" // Blowjobs.pro
         13 -> "https://spankbangs.co.uk/wp-content/uploads/2024/06/spankbang-com-favicon-17110d01.png" // SpangBang
         14 -> "https://ptx.cdntrex.com/contents/videos_screenshots/2848000/2848250/preview.jpg" // PornTrex
@@ -229,8 +227,8 @@ internal fun getImageFromServerId(id: Int): String {
         28 -> "https://pbs.twimg.com/profile_images/1054618246551298048/Dkj4DQSt_400x400.jpg"
         29 -> "https://logoeps.com/wp-content/uploads/2013/04/porn-star-vector-logo.png"
 
-        50 -> "https://ih1.redbubble.net/image.2357425361.6067/raf,360x360,075,t,fafafa:ca443f4786.u2.jpg"  // Hanime.tv
-        51 -> "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrLP_RgKcH7Ws83XP9us0Tjdv0cewIFyk0ag&s" // HentaiCloud
+        50 -> "https://www.soviet-power.com/image/cache/data/2021/w165%20%D0%B0-550x550.jpg"  // Hanime.tv
+        51 -> "https://www.soviet-power.com/image/cache/data/2021/w165%20%D0%B0-550x550.jpg" // HentaiCloud
         52 -> "https://hentaigasm.tv/wp-content/uploads/2024/12/HG.png" // HentaiGasm
         53 -> "https://hentaimama.tv/wp-content/uploads/2022/08/1-favicon_PNG.png" // HentaiMama
         54 -> "https://hentaimama.tv/wp-content/uploads/2022/08/1-favicon_PNG.png" // HentaiMama
@@ -251,7 +249,7 @@ internal fun getImageFromServerId(id: Int): String {
         69 -> "https://preview.redd.it/bi0o1d5qw7y21.jpg?auto=webp&s=55351ad97b3ae9503562da00d2d96d62f858899f" // HentaiHeaven
 
         80 -> "https://logowik.com/content/uploads/images/chaturbate1720166505.logowik.com.webp" // Chaturbate
-        81-> "https://www.kamastudioagencia.com/wp-content/uploads/2024/10/amateur-scaled.jpg"  // Amateur.tv
+        81 -> "https://www.kamastudioagencia.com/wp-content/uploads/2024/10/amateur-scaled.jpg"  // Amateur.tv
         82 -> "https://juanbustos.com/wp-content/uploads/2019/02/BongaCams_01-copia.jpg"  // BongaCams
         83 -> "https://webcamstartup.com/wp-content/uploads/2024/07/CAM4_Site_Logo.png"  // Cam4
         84 -> "https://play-lh.googleusercontent.com/BByJrJkoUsr1zl4-B16qjyfIlSZxvbiqaga27HCF_EebNkkQfIf2QgX4bXnWhBRMpF4"  // Camsoda
