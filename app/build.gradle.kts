@@ -255,6 +255,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.svg)
 
     // Lifecycle Components
     implementation(libs.lifecycleExtensions)
