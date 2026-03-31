@@ -227,7 +227,7 @@ internal fun getImageFromServerId(id: Int): String {
         28 -> "https://pbs.twimg.com/profile_images/1054618246551298048/Dkj4DQSt_400x400.jpg"
         29 -> "https://logoeps.com/wp-content/uploads/2013/04/porn-star-vector-logo.png"
 
-        50 -> "https://www.soviet-power.com/image/cache/data/2021/w165%20%D0%B0-550x550.jpg"  // Hanime.tv
+        50 -> "https://ih1.redbubble.net/image.2357425361.6067/raf,360x360,075,t,fafafa:ca443f4786.u2.jpg"  // Hanime.tv
         51 -> "https://www.soviet-power.com/image/cache/data/2021/w165%20%D0%B0-550x550.jpg" // HentaiCloud
         52 -> "https://hentaigasm.tv/wp-content/uploads/2024/12/HG.png" // HentaiGasm
         53 -> "https://hentaimama.tv/wp-content/uploads/2022/08/1-favicon_PNG.png" // HentaiMama
