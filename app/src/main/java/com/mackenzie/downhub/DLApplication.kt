@@ -10,6 +10,7 @@ import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
+import coil3.svg.SvgDecoder
 import com.mackenzie.downhub.util.AppLogger
 import com.mackenzie.downhub.util.ContextUtils
 import com.mackenzie.downhub.util.FileUtil
@@ -107,6 +108,7 @@ open class DLApplication : Application(), SingletonImageLoader.Factory {
         return ImageLoader.Builder(context)
             .components {
                 add(OkHttpNetworkFetcherFactory(callFactory = { okHttpProxyClient.getProxyOkHttpClient() }))
+                add(SvgDecoder.Factory())
             }
             .build()
     }
