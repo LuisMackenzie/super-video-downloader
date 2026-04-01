@@ -289,6 +289,10 @@ dependencies {
     implementation(libs.retrofitRxjava3)
     implementation(libs.persistentCookieJar)
 
+    // Moshi converters
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
+
     // RxJava 3
     implementation(libs.rxjava3)
     implementation(libs.rxandroid3)
