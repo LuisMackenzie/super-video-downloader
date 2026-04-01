@@ -219,6 +219,10 @@ android {
 dependencies {
     println("\n📦 Resolving Dependencies...")
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":UseCases"))
+
     // Core Android Libraries
     implementation(libs.appcompat)
     implementation(libs.material)
