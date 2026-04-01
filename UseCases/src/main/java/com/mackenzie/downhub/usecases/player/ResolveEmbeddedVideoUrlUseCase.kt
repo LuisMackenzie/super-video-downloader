@@ -1,4 +1,4 @@
-package com.mackenzie.naughtyhub.usecases.player
+package com.mackenzie.downhub.usecases.player
 
 import arrow.core.Either
 import com.mackenzie.downhub.data.datasources.EmbeddedVideoResolver
