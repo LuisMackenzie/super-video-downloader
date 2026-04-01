@@ -1,8 +1,8 @@
-package com.mackenzie.downhub.util.hub
+package com.mackenzie.downhub.domain.providers
 
-import com.mackenzie.downhub.data.local.model.hub.ServerStatus
-import com.mackenzie.downhub.data.local.model.hub.VideoItem
-import com.mackenzie.downhub.data.local.model.hub.VideoItemType
+import com.mackenzie.downhub.domain.ServerStatus
+import com.mackenzie.downhub.domain.VideoItem
+import com.mackenzie.downhub.domain.VideoItemType
 
 fun getHentaiServers() = (50..69).map {
     VideoItem(

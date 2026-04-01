@@ -1,13 +1,15 @@
-package com.mackenzie.downhub.util.hub
+package com.mackenzie.downhub.domain.mocks
 
-import com.mackenzie.downhub.data.local.model.hub.ServerStatus
-import com.mackenzie.downhub.data.local.model.hub.VideoItem
-import com.mackenzie.downhub.data.local.model.hub.video.StarInfoItem
-import com.mackenzie.downhub.data.local.model.hub.video.StarItem
-import com.mackenzie.downhub.data.local.model.hub.video.TagDomainInfo
-import com.mackenzie.downhub.data.local.model.hub.video.ThumbItem
-import com.mackenzie.downhub.data.local.model.hub.video.VideoDomainItem
-import com.mackenzie.downhub.data.local.model.hub.video.VideoItemDetails
+import com.mackenzie.downhub.domain.ServerStatus
+import com.mackenzie.downhub.domain.VideoItem
+import com.mackenzie.downhub.domain.providers.getSFWUrlVideo
+import com.mackenzie.downhub.domain.providers.getType
+import com.mackenzie.downhub.domain.video.StarInfoItem
+import com.mackenzie.downhub.domain.video.StarItem
+import com.mackenzie.downhub.domain.video.TagDomainInfo
+import com.mackenzie.downhub.domain.video.ThumbItem
+import com.mackenzie.downhub.domain.video.VideoDomainItem
+import com.mackenzie.downhub.domain.video.VideoItemDetails
 
 fun getMedia() = (1..20).map {
     VideoDomainItem(
