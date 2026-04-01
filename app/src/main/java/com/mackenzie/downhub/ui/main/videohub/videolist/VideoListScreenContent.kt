@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.mackenzie.downhub.util.hub.getMedia
-import com.mackenzie.downhub.util.hub.getNameById
+import com.mackenzie.downhub.domain.mocks.getMedia
+import com.mackenzie.downhub.domain.providers.getNameById
 
 @Composable
 fun VideoListScreenContent(
@@ -26,7 +26,7 @@ fun VideoListScreenContent(
     val state by vm.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(serverId, serverUrl) {
-        vm.loadVideos(serverId, serverUrl)
+        // vm.loadVideos(serverId, serverUrl)
     }
 
     Scaffold(

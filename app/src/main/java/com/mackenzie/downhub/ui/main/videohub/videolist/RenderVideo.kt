@@ -32,10 +32,10 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.mackenzie.downhub.R
-import com.mackenzie.downhub.data.local.model.hub.VideoItemType
-import com.mackenzie.downhub.data.local.model.hub.video.VideoDomainItem
+import com.mackenzie.downhub.domain.VideoItemType
+import com.mackenzie.downhub.domain.mocks.getMedia
+import com.mackenzie.downhub.domain.video.VideoDomainItem
 import com.mackenzie.downhub.ui.main.videohub.main.loadIcon
-import com.mackenzie.downhub.util.hub.getMedia
 
 @Preview( showBackground = true, heightDp = 200, widthDp = 150)
 @Composable

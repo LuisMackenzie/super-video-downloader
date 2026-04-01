@@ -13,9 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mackenzie.downhub.data.local.model.hub.video.VideoDomainItem
+import com.mackenzie.downhub.domain.mocks.getMedia
+import com.mackenzie.downhub.domain.video.VideoDomainItem
 import com.mackenzie.downhub.ui.main.videohub.main.TitleText
-import com.mackenzie.downhub.util.hub.getMedia
 
 @Preview(showBackground = true)
 @Composable
