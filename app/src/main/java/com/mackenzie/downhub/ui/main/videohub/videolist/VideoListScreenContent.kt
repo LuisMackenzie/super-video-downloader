@@ -26,6 +26,7 @@ fun VideoListScreenContent(
     val state by vm.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(serverId, serverUrl) {
+        // TODO connectar de nuevo
         // vm.loadVideos(serverId, serverUrl)
     }
 
