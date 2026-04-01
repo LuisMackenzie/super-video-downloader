@@ -2,13 +2,14 @@ package com.mackenzie.downhub.ui.main.videohub.videolist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mackenzie.downhub.data.local.model.hub.video.VideoDomainItem
-import com.mackenzie.naughtyhub.usecases.list.GetBeegVideoListUseCase
-import com.mackenzie.naughtyhub.usecases.list.GetPrimaryVideoListUseCase
-import com.mackenzie.naughtyhub.usecases.list.GetSecondaryVideoListUseCase
-import com.mackenzie.naughtyhub.usecases.list.GetTertiaryVideoListUseCase
-import com.mackenzie.naughtyhub.usecases.list.GetVideoDefaultListUseCase
-import com.mackenzie.naughtyhub.usecases.list.GetVideoListUseCase
+import com.mackenzie.downhub.domain.Error
+import com.mackenzie.downhub.domain.video.VideoDomainItem
+import com.mackenzie.downhub.usecases.list.GetBeegVideoListUseCase
+import com.mackenzie.downhub.usecases.list.GetPrimaryVideoListUseCase
+import com.mackenzie.downhub.usecases.list.GetSecondaryVideoListUseCase
+import com.mackenzie.downhub.usecases.list.GetTertiaryVideoListUseCase
+import com.mackenzie.downhub.usecases.list.GetVideoDefaultListUseCase
+import com.mackenzie.downhub.usecases.list.GetVideoListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -171,6 +172,4 @@ class VideoHubViewModel @Inject constructor(
         val error: String? = null,
         val videos: List<VideoDomainItem> = emptyList()
     )
-
-
 }
