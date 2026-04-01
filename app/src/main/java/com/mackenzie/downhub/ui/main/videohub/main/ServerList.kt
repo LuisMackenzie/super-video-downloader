@@ -16,10 +16,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mackenzie.downhub.BuildConfig
-import com.mackenzie.downhub.data.local.model.hub.VideoItem
-import com.mackenzie.downhub.util.hub.getHentaiServers
-import com.mackenzie.downhub.util.hub.getLiveCamsServers
-import com.mackenzie.downhub.util.hub.getVideoServers
+import com.mackenzie.downhub.domain.VideoItem
+import com.mackenzie.downhub.domain.providers.getHentaiServers
+import com.mackenzie.downhub.domain.providers.getLiveCamsServers
+import com.mackenzie.downhub.domain.providers.getVideoServers
 
 @Preview
 @Composable

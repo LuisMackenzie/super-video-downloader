@@ -1,4 +1,4 @@
-package com.mackenzie.downhub.data.local.model.hub
+package com.mackenzie.downhub.domain
 
 data class ServerStatus(
     val isOffline: Boolean = false,

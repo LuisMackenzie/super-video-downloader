@@ -1,4 +1,4 @@
-package com.mackenzie.downhub.data.local.model.hub.video.embed
+package com.mackenzie.downhub.domain.video.embed
 
 data class ServerSpec(
     val id: Int,

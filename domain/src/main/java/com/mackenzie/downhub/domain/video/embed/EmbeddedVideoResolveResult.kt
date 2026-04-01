@@ -1,4 +1,4 @@
-package com.mackenzie.downhub.data.local.model.hub.video.embed
+package com.mackenzie.downhub.domain.video.embed
 
 /**
  * Resultado de la resolución de un embed a un recurso reproducible por ExoPlayer.

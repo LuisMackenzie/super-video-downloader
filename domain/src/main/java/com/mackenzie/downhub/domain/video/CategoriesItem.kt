@@ -1,4 +1,4 @@
-package com.mackenzie.downhub.data.local.model.hub.video
+package com.mackenzie.downhub.domain.video
 
 
 data class CategoriesItem(
