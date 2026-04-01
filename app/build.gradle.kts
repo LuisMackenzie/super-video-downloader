@@ -272,6 +272,7 @@ dependencies {
 
     // Hilt - Dependency Injection
     implementation(libs.hiltAndroid)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hiltCompiler)
     implementation(libs.hiltWork)
     ksp(libs.hiltWorkCompiler)
