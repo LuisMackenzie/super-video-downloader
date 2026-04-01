@@ -1,9 +1,9 @@
 package com.mackenzie.naughtyhub.usecases.player
 
 import arrow.core.Either
-import com.mackenzie.naughtyhub.domain.video.embed.EmbeddedVideoResolveResult
-import com.mackenzie.naughtyhub.data.datasources.EmbeddedVideoResolver
-import com.mackenzie.naughtyhub.data.embed.EmbeddedVideoResolveError
+import com.mackenzie.downhub.data.datasources.EmbeddedVideoResolver
+import com.mackenzie.downhub.data.embed.EmbeddedVideoResolveError
+import com.mackenzie.downhub.domain.video.embed.EmbeddedVideoResolveResult
 import javax.inject.Inject
 
 class ResolveEmbeddedVideoUrlUseCase @Inject constructor(
