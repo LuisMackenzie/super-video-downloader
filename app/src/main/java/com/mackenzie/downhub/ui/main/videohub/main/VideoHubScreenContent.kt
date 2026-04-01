@@ -1,4 +1,4 @@
-package com.mackenzie.downhub.ui.main.home.newhome
+package com.mackenzie.downhub.ui.main.videohub.main
 
 import android.util.Log
 import android.widget.Toast

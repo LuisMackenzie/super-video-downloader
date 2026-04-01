@@ -1,7 +1,7 @@
 package com.mackenzie.downhub.util.fragment
 
 import androidx.fragment.app.Fragment
-import com.mackenzie.downhub.ui.main.home.newhome.HomeComposeFragment
+import com.mackenzie.downhub.ui.main.videohub.main.HomeComposeFragment
 import com.mackenzie.downhub.ui.main.history.HistoryFragment
 import com.mackenzie.downhub.ui.main.home.browser.BrowserFragment
 import com.mackenzie.downhub.ui.main.home.browser.detectedVideos.DetectedVideosTabFragment
