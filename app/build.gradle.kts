@@ -317,6 +317,7 @@ dependencies {
     implementation(libs.kotlinxSerializationCore)
     implementation(libs.jsoup)
     implementation(libs.timeago)
+    implementation(libs.arrow.either)
 
     // Desugar for Java 8+ APIs
     coreLibraryDesugaring(libs.desugarJdk)
