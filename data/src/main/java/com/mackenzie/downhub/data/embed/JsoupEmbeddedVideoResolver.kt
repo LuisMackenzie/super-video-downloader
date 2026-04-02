@@ -18,19 +18,18 @@ import java.net.URI
 import javax.inject.Inject
 
 class JsoupEmbeddedVideoResolver @Inject constructor(
-    private val okHttpClient: OkHttpClient,
     private val moshi: Moshi
 ) : EmbeddedVideoResolver {
 
     // Lista de servidores soportados (IDs 1-22) definidos en VideoItem.kt
     private val supportedServers = ServerSpec.getSupportedServers()
 
-    override suspend fun resolve(embedUrl: String): Either<EmbeddedVideoResolveError, EmbeddedVideoResolveResult> =
+    override suspend fun resolve(embedUrl: String, okHttpProxyClient: OkHttpClient): Either<EmbeddedVideoResolveError, EmbeddedVideoResolveResult> =
         withContext(Dispatchers.IO) {
             try {
                 val server = identifyServer(embedUrl)
-                val initial = fetchDocument(embedUrl, referer = null)
-                val result = resolveFromDocument(initial, baseUrl = embedUrl, server = server)
+                val initial = fetchDocument(embedUrl, referer = null, okHttpProxyClient)
+                val result = resolveFromDocument(initial, baseUrl = embedUrl, server = server, okHttpProxyClient)
                 result ?: EmbeddedVideoResolveError.NotFound().left()
             } catch (e: HttpException) {
                 EmbeddedVideoResolveError.Http(code = e.code, message = e.message).left()
@@ -42,7 +41,8 @@ class JsoupEmbeddedVideoResolver @Inject constructor(
     private suspend fun resolveFromDocument(
         doc: Document,
         baseUrl: String,
-        server: ServerSpec?
+        server: ServerSpec?,
+        okHttpProxyClient: OkHttpClient
     ): Either<EmbeddedVideoResolveError, EmbeddedVideoResolveResult>? {
         // 0. Detección de JS obligatorio
         if (requiresJavaScript(doc)) {
@@ -73,12 +73,12 @@ class JsoupEmbeddedVideoResolver @Inject constructor(
 
         // 5. Estrategia de Iframe (Recursión una sola vez para evitar bucles)
         findIframeUrl(doc, baseUrl)?.let { iframeUrl ->
-            val iframeDocEither = fetchDocumentEither(iframeUrl, referer = baseUrl)
+            val iframeDocEither = fetchDocumentEither(iframeUrl, referer = baseUrl, okHttpProxyClient)
             return iframeDocEither.fold(
                 ifLeft = { it.left() },
                 ifRight = { iframeDoc ->
                     // Recursión: Intentamos resolver desde el iframe, manteniendo el servidor si es el mismo
-                    resolveFromDocument(iframeDoc, baseUrl = iframeUrl, server = server ?: identifyServer(iframeUrl))
+                    resolveFromDocument(iframeDoc, baseUrl = iframeUrl, server = server ?: identifyServer(iframeUrl), okHttpProxyClient)
                         ?: EmbeddedVideoResolveError.NotFound().left()
                 }
             )
@@ -199,9 +199,9 @@ class JsoupEmbeddedVideoResolver @Inject constructor(
         return makeAbsoluteUrl(baseUrl, src)
     }
 
-    private fun fetchDocumentEither(url: String, referer: String?): Either<EmbeddedVideoResolveError, Document> {
+    private fun fetchDocumentEither(url: String, referer: String?, okHttpProxyClient: OkHttpClient): Either<EmbeddedVideoResolveError, Document> {
         return try {
-            val doc = fetchDocument(url, referer)
+            val doc = fetchDocument(url, referer, okHttpProxyClient)
             doc.right()
         } catch (e: HttpException) {
             EmbeddedVideoResolveError.Http(code = e.code, message = e.message).left()
@@ -210,7 +210,7 @@ class JsoupEmbeddedVideoResolver @Inject constructor(
         }
     }
 
-    private fun fetchDocument(url: String, referer: String?): Document {
+    private fun fetchDocument(url: String, referer: String?, okHttpProxyClient: OkHttpClient): Document {
         val requestBuilder = Request.Builder()
             .url(url)
             .get()
@@ -219,7 +219,7 @@ class JsoupEmbeddedVideoResolver @Inject constructor(
 
         if (!referer.isNullOrBlank()) requestBuilder.header("Referer", referer)
 
-        val response = okHttpClient.newCall(requestBuilder.build()).execute()
+        val response = okHttpProxyClient.newCall(requestBuilder.build()).execute()
         response.use {
             if (!it.isSuccessful) throw HttpException(it.code, it.message)
             return Jsoup.parse(it.body?.string().orEmpty(), url)
