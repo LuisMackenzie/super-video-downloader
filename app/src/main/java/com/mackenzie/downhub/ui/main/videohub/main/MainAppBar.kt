@@ -47,9 +47,9 @@ fun MainAppBar() {
 }
 
 private fun onSettingsClick(ctx : Context) {
-    val playerMode = ctx.getExternalPlayerMode() ?: false
+    val playerMode = ctx.getExternalPlayerMode()
     ctx.setExternalPlayerMode(!playerMode)
-    val updatedMode = ctx.getExternalPlayerMode() ?: false
+    val updatedMode = ctx.getExternalPlayerMode()
     Log.e("PlayerMode", "Current mode: ${if (updatedMode) "External Player" else "Internal PLayer"}")
     if (updatedMode) {
         Toast.makeText( ctx, "Se ha activado el player Externo", Toast.LENGTH_SHORT).show()
