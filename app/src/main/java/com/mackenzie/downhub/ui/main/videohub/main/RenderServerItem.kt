@@ -62,7 +62,6 @@ fun RenderServerItem(
                 .height(120.dp)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            Log.e("RenderServerItem", "Loading image: ${item.thumb}")
             AsyncImage(
                 model= ImageRequest.Builder(LocalContext.current)
                     .data(item.thumb)
