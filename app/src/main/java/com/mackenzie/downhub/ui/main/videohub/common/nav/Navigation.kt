@@ -9,32 +9,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
+import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
 
 @Composable
 fun Navigation() {
 
     val navController = rememberNavController()
-    // var backStackServer: ServerType? = null
-    // var switchState by remember { mutableStateOf(SwitchState()) }
 
     NavHost(
         navController = navController,
         startDestination = NavItem.VideoServersScreen.route
     ) {
-        /*composable(NavItem.SplashScreen) {
-            SplashScreenRoute {
-                navController.navigate(route = NavItem.VideoServersScreen.route) {
-                    popUpTo(route = NavItem.SplashScreen.route) { inclusive = true }
-                }
-            }
-        }*/
-
         composable(NavItem.VideoServersScreen) {
             VideoHubScreenContent() { serverId, serverUrl ->
                 navController.navigate(route= NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
             }
         }
+
         composable(NavItem.VideoListScreen) { backStackEntry ->
             VideoListScreenContent(
                 serverId = backStackEntry.findArg(NavArg.VideoHubServerId),
@@ -43,7 +35,8 @@ fun Navigation() {
                 // navController.navigate(route= NavItem.PlayerScreen.createRoute(videoId, videoUrl.urlEncoder(), embedUrl.urlEncoder()) )
             }
         }
-        /*composable(NavItem.PlayerScreen) { backStackEntry ->
+
+        composable(NavItem.PlayerScreen) { backStackEntry ->
             VideoPlayerScreenContent(
                 videoId = backStackEntry.findArg(NavArg.VideoId),
                 videoUrl = backStackEntry.findArg(NavArg.VideoUrl),
@@ -53,9 +46,8 @@ fun Navigation() {
                     navController.popBackStack()
                 }
             )
-        }*/
+        }
     }
-
 }
 
 private fun NavGraphBuilder.composable(
@@ -71,11 +63,5 @@ private fun NavGraphBuilder.composable(
 private inline fun <reified T> NavBackStackEntry.findArg(arg: NavArg): T {
     val value = arguments?.get(arg.key)
     requireNotNull(value) { "Argument ${arg.key} not found" }
-    return value as T
-}
-
-private inline fun <reified T> NavBackStackEntry.findArgByKey(key: String): T {
-    val value = arguments?.get(key)
-    requireNotNull(value) { "Argument ${key} not found" }
     return value as T
 }
