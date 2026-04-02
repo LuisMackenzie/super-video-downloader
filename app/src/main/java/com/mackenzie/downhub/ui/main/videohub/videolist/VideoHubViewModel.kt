@@ -10,6 +10,7 @@ import com.mackenzie.downhub.usecases.list.GetSecondaryVideoListUseCase
 import com.mackenzie.downhub.usecases.list.GetTertiaryVideoListUseCase
 import com.mackenzie.downhub.usecases.list.GetVideoDefaultListUseCase
 import com.mackenzie.downhub.usecases.list.GetVideoListUseCase
+import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,8 @@ class VideoHubViewModel @Inject constructor(
     private val getPrimaryVideoListUseCase: GetPrimaryVideoListUseCase,
     private val getSecondaryVideoListUseCase: GetSecondaryVideoListUseCase,
     private val getTertiaryVideoListUseCase: GetTertiaryVideoListUseCase,
-    private val getBeegVideoListUseCase: GetBeegVideoListUseCase
+    private val getBeegVideoListUseCase: GetBeegVideoListUseCase,
+    private val okHttpProxyClient: OkHttpProxyClient,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(VideoHubUiState())
@@ -98,7 +100,7 @@ class VideoHubViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
 
-            getPrimaryVideoListUseCase(serverId, serverUrl).fold(
+            getPrimaryVideoListUseCase(serverId, serverUrl, okHttpProxyClient.getProxyOkHttpClient()).fold(
                 ifLeft = { error ->
                     _state.update { it.copy(
                         isLoading = false,
@@ -134,7 +136,7 @@ class VideoHubViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
 
-            getTertiaryVideoListUseCase(serverId, serverUrl).fold(
+            getTertiaryVideoListUseCase(serverId, serverUrl, okHttpProxyClient.getProxyOkHttpClient()).fold(
                 ifLeft = { error ->
                     _state.update { it.copy(
                         isLoading = false,
@@ -151,7 +153,7 @@ class VideoHubViewModel @Inject constructor(
     private fun getBeegVideoList(serverId: Int, serverUrl: String) {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
-            getBeegVideoListUseCase(serverId, serverUrl).fold(
+            getBeegVideoListUseCase(serverId, serverUrl, okHttpProxyClient.getProxyOkHttpClient()).fold(
                 ifLeft = { error ->
                     _state.update {
                         it.copy(
