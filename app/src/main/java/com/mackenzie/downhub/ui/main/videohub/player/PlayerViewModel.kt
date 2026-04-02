@@ -7,6 +7,7 @@ import arrow.core.Either
 import com.mackenzie.downhub.data.embed.EmbeddedVideoResolveError
 import com.mackenzie.downhub.domain.video.embed.EmbeddedVideoResolveResult
 import com.mackenzie.downhub.usecases.player.ResolveEmbeddedVideoUrlUseCase
+import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private val resolveEmbeddedVideoUrlUseCase: ResolveEmbeddedVideoUrlUseCase,
-    private val okHttpClient: OkHttpClient,
+    private val okHttpClient: OkHttpProxyClient,
     @ApplicationContext private val appContext: Context,
 ) : ViewModel() {
 
@@ -107,7 +108,7 @@ class PlayerViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isDownloading = true, downloadProgress = 0, downloadError = null) }
 
-            downloadWithOkHttp(url, okHttpClient, appContext).collect { event ->
+            downloadWithOkHttp(url, okHttpClient.getProxyOkHttpClient(), appContext).collect { event ->
                 when (event) {
                     is Int -> _state.update { it.copy(downloadProgress = event) }
                     is DownloadResult.Success -> _state.update {
