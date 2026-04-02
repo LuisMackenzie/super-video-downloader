@@ -1,5 +1,6 @@
 package com.mackenzie.downhub.di.module
 
+import android.os.Build
 import com.mackenzie.downhub.data.remote.models.RemoteVideoHubConnect
 import com.mackenzie.downhub.data.remote.service.VideoHubService
 import com.mackenzie.downhub.domain.video.ApiVideoUrl
@@ -14,8 +15,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -36,6 +39,39 @@ abstract class AppModule {
         fun provideMoshi(): Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
+
+        @Provides
+        @Singleton
+        fun networkModuleForOld() = NetworkModuleForOldDevices()
+
+        /*@Provides
+        @Singleton
+        fun provideOkHttpClientForHub():OkHttpClient = HttpLoggingInterceptor().run {
+            level = HttpLoggingInterceptor.Level.BODY
+            when (Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.M, Build.VERSION_CODES.N -> {
+                    OkHttpClient.Builder()
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(15, TimeUnit.SECONDS)
+                        .sslSocketFactory(
+                            networkModuleForOld().sslContext().socketFactory,
+                            networkModuleForOld().x509TrustManager()
+                        )
+                        .addInterceptor(this)
+                        .build()
+                }
+                else -> {
+                    OkHttpClient.Builder()
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(15, TimeUnit.SECONDS)
+                        .addInterceptor(this)
+                        .build()
+                }
+            }
+        }*/
+
 
         @Provides
         @Singleton
