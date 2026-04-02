@@ -14,7 +14,7 @@ fun VideoHubScreenContent(
 ) {
 
     Scaffold(
-        // topBar = { MainAppBar() }
+        topBar = { MainAppBar() }
     ) { padding ->
 
         val ctx = LocalContext.current
