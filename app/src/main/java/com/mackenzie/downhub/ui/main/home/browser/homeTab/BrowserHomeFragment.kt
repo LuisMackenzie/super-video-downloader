@@ -3,6 +3,7 @@ package com.mackenzie.downhub.ui.main.home.browser.homeTab
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -135,6 +136,13 @@ class BrowserHomeFragment : BaseWebTabFragment() {
         super.onResume()
         val bookmarksList = mainViewModel.bookmarksList.get()?.toMutableList()
         mainViewModel.bookmarksList.set(bookmarksList)
+        val openingUrl = mainViewModel.openedUrl.get()
+        Log.e("BrowserHomeFragment", "onViewCreated: openedUrl = $openingUrl")
+        if (openingUrl != null) {
+            binding.homeEtSearch.text = Editable.Factory.getInstance().newEditable(openingUrl)
+            openNewTab(openingUrl)
+            mainViewModel.openedUrl.set(null)
+        }
     }
 
     private val suggestionListener = object : SuggestionListener {
