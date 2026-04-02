@@ -13,6 +13,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.javax.inject)
     implementation(libs.arrow.either)
+    // Network - OkHttp & Retrofit
+    implementation(libs.okHttpRuntime)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
