@@ -36,11 +36,11 @@ class PlayerViewModel @Inject constructor(
             val primaryUrl = url.trim()
             val fallbackUrl = embedUrl.trim()
 
-            val result = resolveEmbeddedVideoUrlUseCase(primaryUrl)
+            val result = resolveEmbeddedVideoUrlUseCase(primaryUrl, okHttpClient.getProxyOkHttpClient())
                 .fold(
                     ifLeft = { firstError ->
                         if (fallbackUrl.isNotBlank() && fallbackUrl != primaryUrl) {
-                            resolveEmbeddedVideoUrlUseCase(fallbackUrl)
+                            resolveEmbeddedVideoUrlUseCase(fallbackUrl, okHttpClient.getProxyOkHttpClient())
                         } else {
                             Either.Left(firstError)
                         }
