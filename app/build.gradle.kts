@@ -313,6 +313,11 @@ dependencies {
     implementation(libs.media3Common)
     implementation(libs.media3DatasourceOkhttp)
 
+    // Chromecast support
+    implementation(libs.extension.cast)
+    implementation(libs.androidx.mediarouter)
+    implementation(libs.play.services.cast.framework)
+
     // Image Loading
     implementation(libs.glideRuntime)
 

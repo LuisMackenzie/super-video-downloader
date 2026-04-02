@@ -82,6 +82,11 @@ moshiKotlin = "1.15.2"
 # Media3
 media3 = "1.9.1"
 
+# Chromecast support
+extensionCast = "2.19.1"
+mediarouter = "1.8.1"
+playServicesCastFramework = "22.3.0"
+
 # Testing
 testRunner = "1.1.0"
 junit = "4.13.2"
@@ -240,6 +245,11 @@ media3Decoder = { module = "androidx.media3:media3-decoder", version.ref = "medi
 media3Datasource = { module = "androidx.media3:media3-datasource", version.ref = "media3" }
 media3Common = { module = "androidx.media3:media3-common", version.ref = "media3" }
 media3DatasourceOkhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "media3" }
+
+# Chromecast support
+extension-cast = { module = "com.google.android.exoplayer:extension-cast", version.ref = "extensionCast" }
+androidx-mediarouter = { module = "androidx.mediarouter:mediarouter", version.ref = "mediarouter" }
+play-services-cast-framework = { module = "com.google.android.gms:play-services-cast-framework", version.ref = "playServicesCastFramework" }
 
 # Testing
 testRunner = { module = "androidx.test.ext:junit", version.ref = "androidxTestJunit" }
