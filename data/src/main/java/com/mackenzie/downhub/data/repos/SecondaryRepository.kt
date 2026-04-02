@@ -18,7 +18,6 @@ import kotlin.text.ifEmpty
 import kotlin.text.isEmpty
 
 class SecondaryRepository @Inject constructor(
-    val okHttpClient: OkHttpClient,
     val moshi: Moshi
 ) {
 
