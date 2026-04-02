@@ -3,6 +3,7 @@ package com.mackenzie.downhub.di.module
 import com.mackenzie.downhub.data.remote.models.RemoteVideoHubConnect
 import com.mackenzie.downhub.data.remote.service.VideoHubService
 import com.mackenzie.downhub.domain.video.ApiVideoUrl
+import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
 import com.mackenzie.downhub.util.scheduler.BaseSchedulers
 import com.mackenzie.downhub.util.scheduler.BaseSchedulersImpl
 import com.squareup.moshi.Moshi
@@ -40,13 +41,13 @@ abstract class AppModule {
         @Singleton
         fun provideVideoHubService(
             apiUrl: ApiVideoUrl,
-            client: OkHttpClient,
+            client: OkHttpProxyClient,
             moshi: Moshi
         ): RemoteVideoHubConnect {
 
             val builderHub = Retrofit.Builder()
                 .baseUrl(apiUrl.redtubeBaseUrl)
-                .client(client)
+                .client(client.getProxyOkHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
 
