@@ -470,10 +470,10 @@ class BrowserFragment : BaseFragment(), BrowserServicesProvider {
 
     private fun onBackPressed() {
         val rootPagerIndex = mainActivity.mainViewModel.currentItem.get() ?: 0
-        if (rootPagerIndex != ROOT_BROWSER_INDEX) {
-            mainActivity.mainViewModel.currentItem.set(ROOT_BROWSER_INDEX)
+        if (rootPagerIndex != HOME_TAB_INDEX) {
+            mainActivity.mainViewModel.currentItem.set(HOME_TAB_INDEX)
         }
-        if (rootPagerIndex == ROOT_BROWSER_INDEX) {
+        if (rootPagerIndex == HOME_TAB_INDEX) {
             if (backPressedOnce) {
                 requireActivity().finish()
                 return
