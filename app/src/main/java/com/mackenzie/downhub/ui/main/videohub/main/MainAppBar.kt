@@ -1,6 +1,6 @@
 package com.mackenzie.downhub.ui.main.videohub.main
 
-import android.app.Activity
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,13 +31,13 @@ import com.mackenzie.downhub.ui.main.videohub.common.setExternalPlayerMode
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainAppBar() {
-    val activity = LocalContext.current as? Activity
+    val context = LocalContext.current
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         actions = {
             AppBarAction(Icons.Default.Search, onClick = { /*TODO*/ })
             AppBarAction(Icons.Default.Settings, onClick = {
-                onSettingsClick(activity)
+                onSettingsClick(context)
             })
         },
         navigationIcon = {
@@ -46,15 +46,15 @@ fun MainAppBar() {
     )
 }
 
-private fun onSettingsClick(activity : Activity?) {
-    val playerMode = activity?.getExternalPlayerMode() ?: false
-    activity?.setExternalPlayerMode(!playerMode)
-    val updatedMode = activity?.getExternalPlayerMode() ?: false
+private fun onSettingsClick(ctx : Context) {
+    val playerMode = ctx.getExternalPlayerMode() ?: false
+    ctx.setExternalPlayerMode(!playerMode)
+    val updatedMode = ctx.getExternalPlayerMode() ?: false
     Log.e("PlayerMode", "Current mode: ${if (updatedMode) "External Player" else "Internal PLayer"}")
     if (updatedMode) {
-        Toast.makeText( activity, "Se ha activado el player Externo", Toast.LENGTH_SHORT).show()
+        Toast.makeText( ctx, "Se ha activado el player Externo", Toast.LENGTH_SHORT).show()
     } else {
-        Toast.makeText( activity, "Se esta  usando el player interno", Toast.LENGTH_SHORT).show()
+        Toast.makeText( ctx, "Se esta  usando el player interno", Toast.LENGTH_SHORT).show()
     }
 }
 
