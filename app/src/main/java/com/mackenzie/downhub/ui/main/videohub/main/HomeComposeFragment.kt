@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mackenzie.downhub.ui.main.base.BaseFragment
+import com.mackenzie.downhub.ui.main.videohub.common.nav.Navigation
 import com.mackenzie.downhub.ui.theme.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,8 +36,6 @@ class HomeComposeFragment : BaseFragment() {
 @Composable
 private fun LaunchHomeVideoHub() {
     MainTheme {
-        VideoHubScreenContent() { serverId, serverUrl ->
-            // navController.navigate(route= NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
-        }
+        Navigation()
     }
 }
