@@ -738,3 +738,21 @@ project.afterEvaluate {
         }
     }
 }
+
+tasks.register("printGoVersion") {
+    doLast {
+        val result = exec {
+            commandLine("go", "version")
+            isIgnoreExitValue = true
+        }
+        println("Go exit code: ${result.exitValue}")
+    }
+}
+
+tasks.register("checkGoVersion") {
+    doLast {
+        exec {
+            commandLine("go", "version")
+        }
+    }
+}
