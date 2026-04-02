@@ -104,6 +104,13 @@ android {
 
     // Signing Configurations
     signingConfigs {
+
+        getByName("debug") {
+            storeFile = file("signing/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
         create("release") {
             storeFile = file(System.getenv("KEYSTORE_PATH") ?: "keystore.jks")
             storePassword = System.getenv("KEYSTORE_PASSWORD")
@@ -145,6 +152,7 @@ android {
             enableAndroidTestCoverage = false
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            signingConfig = signingConfigs.getByName("debug")
         }
         release {
             enableUnitTestCoverage = false
@@ -658,6 +666,8 @@ archConfigs.forEach { arch ->
         environment("CC", compiler)
         environment("CGO_CFLAGS", "--sysroot=${sysroot}")
         environment("CGO_LDFLAGS", "--sysroot=${sysroot} -llog -Wl,-z,max-page-size=16384")
+        environment("CGO_CFLAGS_ALLOW", "--sysroot=.*")
+        environment("CGO_LDFLAGS_ALLOW", "(--sysroot=.*|-Wl,.*)")
 
         doFirst {
             println("\n>>> Building Go library for ${arch.abi}...")
