@@ -1,7 +1,9 @@
 package com.mackenzie.downhub.ui.main.videohub.common.nav
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -11,10 +13,12 @@ import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
 import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
+import com.mackenzie.downhub.util.SharedPrefHelper
 
 @Composable
-fun Navigation() {
+fun Navigation(onOpenInBrowser: ((String) -> Unit)? = null) {
 
+    val context = LocalContext.current
     val navController = rememberNavController()
 
     NavHost(
@@ -23,7 +27,14 @@ fun Navigation() {
     ) {
         composable(NavItem.VideoServersScreen) {
             VideoHubScreenContent() { serverId, serverUrl ->
-                navController.navigate(route= NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
+                val openInBrowser = context
+                    .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)
+                    .getBoolean(SharedPrefHelper.IS_OPEN_SERVER_IN_BROWSER, false)
+                if (openInBrowser && onOpenInBrowser != null) {
+                    onOpenInBrowser(serverUrl)
+                } else {
+                    navController.navigate(route = NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
+                }
             }
         }
 

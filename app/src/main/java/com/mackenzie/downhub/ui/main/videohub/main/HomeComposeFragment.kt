@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mackenzie.downhub.ui.main.base.BaseFragment
+import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.ui.main.videohub.common.nav.Navigation
 import com.mackenzie.downhub.ui.theme.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,18 +25,24 @@ class HomeComposeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        val mainActivity = requireActivity() as MainActivity
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                LaunchHomeVideoHub()
+                LaunchHomeVideoHub(
+                    onOpenInBrowser = { url ->
+                        mainActivity.mainViewModel.openedUrl.set(url)
+                        mainActivity.mainViewModel.currentItem.set(1)
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun LaunchHomeVideoHub() {
+private fun LaunchHomeVideoHub(onOpenInBrowser: ((String) -> Unit)? = null) {
     MainTheme {
-        Navigation()
+        Navigation(onOpenInBrowser = onOpenInBrowser)
     }
 }

@@ -50,12 +50,20 @@ class SharedPrefHelper @Inject constructor(
         private const val IS_USE_LEGACY_M3U8_DETECTION = "IS_USE_LEGACY_M3U8_DETECTION"
 
         private const val IS_DRM_ENABLED = "IS_DRM_ENABLED"
+
+        private const val VIDEO_PLAYER_PREF_KEY = "video_player_prefs"
+        private const val IS_EXTERNAL_PLAYER_MODE = "external_player_mode"
+
+        const val IS_OPEN_SERVER_IN_BROWSER = "IS_OPEN_SERVER_IN_BROWSER"
     }
 
     private val gson = Gson()
 
     private var sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE)
+
+    private val videoPlayerPreferences: SharedPreferences =
+        context.getSharedPreferences(VIDEO_PLAYER_PREF_KEY, Context.MODE_PRIVATE)
 
     fun saveIsDesktop(isDesktop: Boolean) {
         sharedPreferences.edit {
@@ -381,6 +389,22 @@ class SharedPrefHelper @Inject constructor(
 
     fun setIsDrmEnabled(isEnabled: Boolean) {
         sharedPreferences.edit { putBoolean(IS_DRM_ENABLED, isEnabled) }
+    }
+
+    fun getIsExternalPlayerMode(): Boolean {
+        return videoPlayerPreferences.getBoolean(IS_EXTERNAL_PLAYER_MODE, false)
+    }
+
+    fun setIsExternalPlayerMode(isExternal: Boolean) {
+        videoPlayerPreferences.edit { putBoolean(IS_EXTERNAL_PLAYER_MODE, isExternal) }
+    }
+
+    fun getIsOpenServerInBrowser(): Boolean {
+        return sharedPreferences.getBoolean(IS_OPEN_SERVER_IN_BROWSER, false)
+    }
+
+    fun setIsOpenServerInBrowser(isOpen: Boolean) {
+        sharedPreferences.edit { putBoolean(IS_OPEN_SERVER_IN_BROWSER, isOpen) }
     }
 
 }

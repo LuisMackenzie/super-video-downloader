@@ -47,6 +47,8 @@ class SettingsViewModel @Inject constructor(
     val isRemuxOnlyLiveRegularDownloads = ObservableBoolean(false)
     val isInterruptIntreceptedResources = ObservableBoolean(false)
     val isUseLegacyM3u8Detection = ObservableBoolean(false)
+    val isExternalPlayerMode = ObservableBoolean(false)
+    val isOpenServerInBrowser = ObservableBoolean(false)
     private val isShowVideoActionButton = ObservableBoolean(true)
     private val isShowVideoAlert = ObservableBoolean(true)
     private val isCheckEveryRequestOnVideo = ObservableBoolean(true)
@@ -77,6 +79,8 @@ class SettingsViewModel @Inject constructor(
             videoDetectionTreshold.set(sharedPrefHelper.getVideoDetectionTreshold())
             isLockPortrait.set(sharedPrefHelper.getIsLockPortrait())
             isDrmEnabled.set(sharedPrefHelper.getIsDrmEnabled())
+            isExternalPlayerMode.set(sharedPrefHelper.getIsExternalPlayerMode())
+            isOpenServerInBrowser.set(sharedPrefHelper.getIsOpenServerInBrowser())
             if (sharedPrefHelper.getIsExternalUse() && !sharedPrefHelper.getIsAppDirUse()) {
                 storageType.set(StorageType.SD)
             } else if (sharedPrefHelper.getIsAppDirUse() && sharedPrefHelper.getIsExternalUse()) {
@@ -95,6 +99,24 @@ class SettingsViewModel @Inject constructor(
             if (isDrmEnabled.get() != isEnabled) {
                 isDrmEnabled.set(isEnabled)
                 sharedPrefHelper.setIsDrmEnabled(isEnabled)
+            }
+        }
+    }
+
+    fun setIsExternalPlayerMode(isExternal: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (isExternalPlayerMode.get() != isExternal) {
+                isExternalPlayerMode.set(isExternal)
+                sharedPrefHelper.setIsExternalPlayerMode(isExternal)
+            }
+        }
+    }
+
+    fun setIsOpenServerInBrowser(isOpen: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (isOpenServerInBrowser.get() != isOpen) {
+                isOpenServerInBrowser.set(isOpen)
+                sharedPrefHelper.setIsOpenServerInBrowser(isOpen)
             }
         }
     }

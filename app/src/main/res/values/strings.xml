@@ -139,5 +139,7 @@
     <string name="drm_permission_message">This site wants to play DRM-protected media (like movies or music). Allowing this is required for playback. Do you want to enable this feature?</string>
     <string name="allow">Allow</string>
     <string name="block">Block</string>
+    <string name="external_player_mode">Use External Player</string>
+    <string name="open_server_in_browser">Open Server in Browser</string>
 
 </resources>

@@ -119,6 +119,28 @@
                 app:trackDecorationTint="@color/colorAccentDark"
                 app:trackTint="@color/color_gray" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/external_player_check_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.isExternalPlayerMode}"
+                android:onCheckedChanged="@{(_, isChecked) -> viewModel.setIsExternalPlayerMode(isChecked)}"
+                android:text="@string/external_player_mode"
+                app:thumbTint="@color/switch_thumb_selector"
+                app:trackDecorationTint="@color/colorAccentDark"
+                app:trackTint="@color/color_gray" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/open_server_in_browser_check_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.isOpenServerInBrowser}"
+                android:onCheckedChanged="@{(_, isChecked) -> viewModel.setIsOpenServerInBrowser(isChecked)}"
+                android:text="@string/open_server_in_browser"
+                app:thumbTint="@color/switch_thumb_selector"
+                app:trackDecorationTint="@color/colorAccentDark"
+                app:trackTint="@color/color_gray" />
+
             <!-- Detection Section -->
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextAppearance.MaterialComponents.Headline6"
