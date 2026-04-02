@@ -19,11 +19,10 @@ import kotlin.text.ifEmpty
 import kotlin.text.isEmpty
 
 class PrimaryRepository @Inject constructor(
-    val okHttpClient: OkHttpClient,
     val moshi: Moshi
 ) {
 
-    suspend fun primaryVideoScrapper(serverId: Int, serverUrl: String): Either<Error, VideoListItem> = withContext(Dispatchers.IO) {
+    suspend fun primaryVideoScrapper(serverId: Int, serverUrl: String, okHttpClient: OkHttpClient): Either<Error, VideoListItem> = withContext(Dispatchers.IO) {
         val serverName = getNameById(serverId)
         val baseUri = URI(serverUrl)
         val baseUrl = "${baseUri.scheme ?: "https"}://${baseUri.host ?: "www.beeg.com"}"

@@ -16,11 +16,10 @@ import java.net.URI
 import javax.inject.Inject
 
 class TertiaryRepository @Inject constructor(
-    val okHttpClient: OkHttpClient,
     val moshi: Moshi
 ) {
 
-    suspend fun tertiaryVideoScrapper(serverId: Int, serverUrl: String) : Either<Error, VideoListItem> = withContext(Dispatchers.IO) {
+    suspend fun tertiaryVideoScrapper(serverId: Int, serverUrl: String, okHttpClient: OkHttpClient) : Either<Error, VideoListItem> = withContext(Dispatchers.IO) {
         val serverName = getNameById(serverId)
         val baseUri = URI(serverUrl)
         val baseUrl = "${baseUri.scheme ?: "https"}://${baseUri.host ?: serverUrl.substringAfter("://").substringBefore("/")}"

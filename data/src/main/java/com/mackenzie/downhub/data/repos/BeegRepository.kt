@@ -71,11 +71,11 @@ private data class BeegFact(
 
 class BeegRepository @Inject constructor(
     // val remoteDataSource: VideoHubRemoteDataSource,
-    val okHttpClient: OkHttpClient,
+    // val okHttpClient: OkHttpClient,
     val moshi: Moshi
 ) {
 
-    suspend fun beegVideoScrapper(serverUrl: String): Either<Error, VideoListItem> =
+    suspend fun beegVideoScrapper(serverUrl: String, okHttpClient: OkHttpClient): Either<Error, VideoListItem> =
         withContext(Dispatchers.IO) {
             val page = extractPageNumber(serverUrl)
             val offset = ((page - 1).coerceAtLeast(0)) * BEEG_PAGE_SIZE
