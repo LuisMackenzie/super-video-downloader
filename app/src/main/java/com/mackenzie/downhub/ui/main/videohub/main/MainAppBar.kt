@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mackenzie.downhub.R
-import com.mackenzie.downhub.util.hub.getExternalPlayerMode
-import com.mackenzie.downhub.util.hub.setExternalPlayerMode
+import com.mackenzie.downhub.ui.main.videohub.common.getExternalPlayerMode
+import com.mackenzie.downhub.ui.main.videohub.common.setExternalPlayerMode
 
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
