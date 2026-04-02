@@ -18,14 +18,16 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.OptIn
 import androidx.core.app.ShareCompat
 import androidx.databinding.Observable
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.util.UnstableApi
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mackenzie.downhub.R
@@ -60,6 +62,7 @@ import com.mackenzie.downhub.util.AppUtil
 import com.mackenzie.downhub.util.FileNameCleaner
 import com.mackenzie.downhub.util.proxy_utils.CustomProxyController
 import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -67,6 +70,7 @@ import org.json.JSONObject
 import java.util.UUID
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class WebTabFragment : BaseWebTabFragment() {
 
     companion object {
@@ -74,9 +78,6 @@ class WebTabFragment : BaseWebTabFragment() {
     }
 
     private lateinit var suggestionAdapter: TabSuggestionAdapter
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var appUtil: AppUtil
@@ -99,9 +100,9 @@ class WebTabFragment : BaseWebTabFragment() {
 
     private lateinit var currentTabIndexProvider: CurrentTabIndexProvider
 
-    private lateinit var tabViewModel: WebTabViewModel
+    private val tabViewModel: WebTabViewModel by viewModels()
 
-    private lateinit var videoDetectionTabViewModel: VideoDetectionTabViewModel
+    private val videoDetectionTabViewModel: VideoDetectionTabViewModel by viewModels()
 
     private lateinit var webTab: WebTab
 
@@ -127,9 +128,6 @@ class WebTabFragment : BaseWebTabFragment() {
         workerEventProvider = mainActivity.mainViewModel.browserServicesProvider!!
         currentTabIndexProvider = mainActivity.mainViewModel.browserServicesProvider!!
 
-        tabViewModel = ViewModelProvider(this, viewModelFactory)[WebTabViewModel::class]
-        videoDetectionTabViewModel =
-            ViewModelProvider(this, viewModelFactory)[VideoDetectionTabViewModel::class]
         videoDetectionTabViewModel.settingsModel = mainActivity.settingsViewModel
         videoDetectionTabViewModel.webTabModel = tabViewModel
 
@@ -275,6 +273,12 @@ class WebTabFragment : BaseWebTabFragment() {
         )
     }
 
+    override fun onDestroyView() {
+        AppLogger.d("onDestroyView Webview::::::::: ${webTab.getUrl()}")
+        mainActivity.mainViewModel.currentItem.removeOnPropertyChangedCallback(changeRouteCallBack)
+        super.onDestroyView()
+    }
+
     override fun onDestroy() {
         AppLogger.Companion.d("onDestroy Webview::::::::: ${webTab.getUrl()}")
         super.onDestroy()
@@ -312,6 +316,7 @@ class WebTabFragment : BaseWebTabFragment() {
         }
     }
 
+    @OptIn(UnstableApi::class)
     private fun onVideoPreviewPropagate(
         videoInfo: VideoInfo, format: String, isForce: Boolean
     ) {

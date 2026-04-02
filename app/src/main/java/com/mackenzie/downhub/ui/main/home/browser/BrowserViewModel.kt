@@ -7,9 +7,11 @@ import com.mackenzie.downhub.ui.main.base.BaseViewModel
 import com.mackenzie.downhub.ui.main.home.browser.webTab.WebTab
 import com.mackenzie.downhub.ui.main.settings.SettingsViewModel
 import com.mackenzie.downhub.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 //@OpenForTesting
+@HiltViewModel
 class BrowserViewModel @Inject constructor() : BaseViewModel() {
 
     companion object {

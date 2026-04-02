@@ -1,6 +1,5 @@
 package com.mackenzie.downhub.ui.main.history
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mackenzie.downhub.R
 import com.mackenzie.downhub.databinding.FragmentHistoryBinding
@@ -22,17 +22,20 @@ import com.mackenzie.downhub.ui.main.home.browser.BrowserViewModel
 import com.mackenzie.downhub.ui.main.home.browser.webTab.WebTab
 import com.mackenzie.downhub.ui.main.progress.WrapContentLinearLayoutManager
 import com.mackenzie.downhub.util.AppLogger
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = HistoryFragment()
     }
 
+    private val mainActivity get() = requireActivity() as MainActivity
+
     private lateinit var mainViewModel: MainViewModel
 
-    private lateinit var historyModel: HistoryViewModel
+    private val historyModel: HistoryViewModel by viewModels()
 
     private lateinit var dataBinding: FragmentHistoryBinding
 
@@ -40,20 +43,11 @@ class HistoryFragment : BaseFragment() {
 
     private lateinit var searchHistoryAdapter: HistorySearchAdapter
 
-    @Inject
-    lateinit var mainActivity: MainActivity
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         mainViewModel = mainActivity.mainViewModel
-
-        historyModel =
-            ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
 
         historyAdapter = HistoryAdapter(emptyList(), historyListener)
         searchHistoryAdapter = HistorySearchAdapter(emptyList(), searchHistoryListener)

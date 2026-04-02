@@ -13,6 +13,7 @@ import com.mackenzie.downhub.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -21,6 +22,7 @@ enum class StorageType {
 }
 
 //@OpenForTesting
+@HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val sharedPrefHelper: SharedPrefHelper,
 ) :

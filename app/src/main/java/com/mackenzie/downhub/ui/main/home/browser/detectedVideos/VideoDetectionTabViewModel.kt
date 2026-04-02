@@ -37,9 +37,11 @@ import okhttp3.Request
 import java.net.HttpCookie
 import java.net.URL
 import java.util.concurrent.Executors
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.core.net.toUri
 
+@HiltViewModel
 open class VideoDetectionTabViewModel @Inject constructor(
     private val videoRepository: VideoRepository,
     private val baseSchedulers: BaseSchedulers,

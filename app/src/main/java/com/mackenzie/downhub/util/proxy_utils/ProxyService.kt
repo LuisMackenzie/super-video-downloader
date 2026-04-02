@@ -16,13 +16,14 @@ import com.mackenzie.downhub.util.AppLogger
 import com.mackenzie.downhub.util.SharedPrefHelper
 import com.mackenzie.downhub.util.proxy_utils.proxy_manager.ProxyHop
 import com.mackenzie.downhub.util.proxy_utils.proxy_manager.ProxyManager
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProxyService : Service() {
 
     @Inject
@@ -47,7 +48,6 @@ class ProxyService : Service() {
     }
 
     override fun onCreate() {
-        AndroidInjection.inject(this)
         super.onCreate()
         isRunning = true
     }

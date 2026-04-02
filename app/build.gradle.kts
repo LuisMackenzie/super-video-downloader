@@ -8,10 +8,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.allopen)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.coveralls)
-    kotlin("kapt")
     id("jacoco")
 }
 
@@ -219,6 +219,10 @@ android {
 dependencies {
     println("\n📦 Resolving Dependencies...")
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":UseCases"))
+
     // Core Android Libraries
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -234,6 +238,7 @@ dependencies {
 
     // Coroutines & Work Manager
     implementation(libs.workRuntimeKtx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.workRxjava3)
     implementation(libs.workMultiprocess)
     implementation(libs.fragmentKtx)
@@ -250,6 +255,12 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
 
+    // Coil libraries
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.svg)
+
     // Lifecycle Components
     implementation(libs.lifecycleExtensions)
     implementation(libs.lifecycleCommonJava8)
@@ -263,12 +274,12 @@ dependencies {
     implementation(libs.roomGuava)
     ksp(libs.roomCompiler)
 
-    // Dagger 2 - Dependency Injection
-    implementation(libs.daggerRuntime)
-    implementation(libs.daggerAndroid)
-    implementation(libs.daggerAndroidSupport)
-    ksp(libs.daggerCompiler)
-    ksp(libs.daggerAndroidProcessor)
+    // Hilt - Dependency Injection
+    implementation(libs.hiltAndroid)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hiltCompiler)
+    implementation(libs.hiltWork)
+    ksp(libs.hiltWorkCompiler)
 
     // Network - OkHttp & Retrofit
     implementation(libs.okHttpRuntime)
@@ -277,6 +288,10 @@ dependencies {
     implementation(libs.retrofitGson)
     implementation(libs.retrofitRxjava3)
     implementation(libs.persistentCookieJar)
+
+    // Moshi converters
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
 
     // RxJava 3
     implementation(libs.rxjava3)
@@ -298,6 +313,11 @@ dependencies {
     implementation(libs.media3Common)
     implementation(libs.media3DatasourceOkhttp)
 
+    // Chromecast support
+    implementation(libs.extension.cast)
+    implementation(libs.androidx.mediarouter)
+    implementation(libs.play.services.cast.framework)
+
     // Image Loading
     implementation(libs.glideRuntime)
 
@@ -306,6 +326,7 @@ dependencies {
     implementation(libs.kotlinxSerializationCore)
     implementation(libs.jsoup)
     implementation(libs.timeago)
+    implementation(libs.arrow.either)
 
     // Desugar for Java 8+ APIs
     coreLibraryDesugaring(libs.desugarJdk)
@@ -714,6 +735,24 @@ project.afterEvaluate {
             println("║  ✓ ALL GO LIBRARIES BUILT SUCCESSFULLY                 ║")
             println("║  Ready for Android APK build                           ║")
             println("╚════════════════════════════════════════════════════════╝\n")
+        }
+    }
+}
+
+tasks.register("printGoVersion") {
+    doLast {
+        val result = exec {
+            commandLine("go", "version")
+            isIgnoreExitValue = true
+        }
+        println("Go exit code: ${result.exitValue}")
+    }
+}
+
+tasks.register("checkGoVersion") {
+    doLast {
+        exec {
+            commandLine("go", "version")
         }
     }
 }

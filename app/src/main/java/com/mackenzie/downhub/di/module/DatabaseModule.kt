@@ -1,9 +1,9 @@
 package com.mackenzie.downhub.di.module
 
+import android.content.Context
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.mackenzie.downhub.DLApplication
 import com.mackenzie.downhub.data.local.room.AppDatabase
 import com.mackenzie.downhub.data.local.room.dao.ConfigDao
 import com.mackenzie.downhub.data.local.room.dao.HistoryDao
@@ -12,6 +12,9 @@ import com.mackenzie.downhub.data.local.room.dao.ProgressDao
 import com.mackenzie.downhub.data.local.room.dao.VideoDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 class UserSqlUtils {
@@ -53,6 +56,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
         db.execSQL("ALTER TABLE VideoInfo ADD COLUMN isLive INTEGER NOT NULL DEFAULT 0")
     }
 }
+
 val MIGRATION_7_8 = object : Migration(7, 8) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL("ALTER TABLE VideoInfo ADD COLUMN isDetectedBySuperX INTEGER NOT NULL DEFAULT 0")
@@ -61,12 +65,13 @@ val MIGRATION_7_8 = object : Migration(7, 8) {
 
 
 @Module
+@InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(application: DLApplication): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "dl.db").addMigrations(
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "dl.db").addMigrations(
             MIGRATION_1_2,
             MIGRATION_2_3,
             MIGRATION_3_4,

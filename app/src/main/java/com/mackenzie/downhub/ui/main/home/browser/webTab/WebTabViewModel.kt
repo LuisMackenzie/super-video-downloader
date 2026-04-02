@@ -20,8 +20,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class WebTabViewModel @Inject constructor(
     private val historyRepository: HistoryRepository,
     private val baseSchedulers: BaseSchedulers,
@@ -97,7 +99,7 @@ class WebTabViewModel @Inject constructor(
         tabSuggestionJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 withContext(this.coroutineContext) {
-                    val list = getListTabSuggestions().blockingFirst().reversed()
+                    val list = fetchTabSuggestions().blockingFirst().reversed()
                     if (list.size > 50) {
                         listTabSuggestions.set(list.subList(0, 50).toMutableList())
                     } else {
@@ -110,7 +112,7 @@ class WebTabViewModel @Inject constructor(
         }
     }
 
-    private fun getListTabSuggestions(): Flowable<List<HistoryItem>> {
+    private fun fetchTabSuggestions(): Flowable<List<HistoryItem>> {
         return Flowable.combineLatest(
             tabPublishSubject.debounce(300, TimeUnit.MILLISECONDS)
                 .toFlowable(BackpressureStrategy.LATEST), historyRepository.getAllHistory().take(1)

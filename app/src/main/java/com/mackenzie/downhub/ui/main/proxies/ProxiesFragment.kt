@@ -17,10 +17,12 @@ import com.mackenzie.downhub.ui.component.adapter.ProxiesListener
 import com.mackenzie.downhub.ui.main.base.BaseFragment
 import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.util.proxy_utils.CustomProxyController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProxiesFragment : BaseFragment() {
 
     companion object {
@@ -30,8 +32,7 @@ class ProxiesFragment : BaseFragment() {
     @Inject
     lateinit var proxyController: CustomProxyController
 
-    @Inject
-    lateinit var mainActivity: MainActivity
+    private val mainActivity get() = requireActivity() as MainActivity
 
     private lateinit var dataBinding: FragmentProxiesBinding
 

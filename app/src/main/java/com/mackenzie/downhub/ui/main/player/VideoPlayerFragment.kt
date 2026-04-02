@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
@@ -32,12 +32,14 @@ import com.mackenzie.downhub.databinding.FragmentPlayerBinding
 import com.mackenzie.downhub.ui.main.base.BaseFragment
 import com.mackenzie.downhub.util.AppUtil
 import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import javax.inject.Inject
 
 
 @UnstableApi
+@AndroidEntryPoint
 class VideoPlayerFragment : BaseFragment() {
 
     companion object {
@@ -47,9 +49,6 @@ class VideoPlayerFragment : BaseFragment() {
     }
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
     lateinit var appUtil: AppUtil
 
     @Inject
@@ -57,7 +56,7 @@ class VideoPlayerFragment : BaseFragment() {
 
     private lateinit var player: ExoPlayer
 
-    private lateinit var videoPlayerViewModel: VideoPlayerViewModel
+    private val videoPlayerViewModel: VideoPlayerViewModel by viewModels()
 
     private lateinit var dataBinding: FragmentPlayerBinding
     private var isStretched = false
@@ -67,8 +66,6 @@ class VideoPlayerFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        videoPlayerViewModel =
-            ViewModelProvider(this, viewModelFactory)[VideoPlayerViewModel::class.java]
         arguments?.getString(VIDEO_HEADERS)?.let { rawHeaders ->
             try {
                 val headers =

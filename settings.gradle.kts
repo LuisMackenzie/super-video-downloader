@@ -19,3 +19,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "super-video-downloader"
 include(":app")
+include(":UseCases")
+include(":domain")
+include(":data")

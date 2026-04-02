@@ -26,8 +26,7 @@ import androidx.core.view.get
 
 
 abstract class BaseWebTabFragment : BaseFragment() {
-    @Inject
-    lateinit var mainActivity: MainActivity
+    protected val mainActivity get() = requireActivity() as MainActivity
 
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper

@@ -3,7 +3,6 @@ package com.mackenzie.downhub.di.module
 import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
-import com.mackenzie.downhub.DLApplication
 import com.mackenzie.downhub.util.AppUtil
 import com.mackenzie.downhub.util.FileUtil
 import com.mackenzie.downhub.util.IntentUtil
@@ -12,9 +11,13 @@ import com.mackenzie.downhub.util.SharedPrefHelper
 import com.mackenzie.downhub.util.SystemUtil
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class UtilModule {
 
     @Singleton
@@ -40,13 +43,13 @@ class UtilModule {
 
     @Singleton
     @Provides
-    fun provideNotificationsHelper(dlApplication: DLApplication): NotificationsHelper {
-        return NotificationsHelper(dlApplication.applicationContext)
+    fun provideNotificationsHelper(@ApplicationContext context: Context): NotificationsHelper {
+        return NotificationsHelper(context)
     }
 
     @Singleton
     @Provides
-    fun provideSharedPrefHelper(dlApplication: DLApplication, appUtil: AppUtil): SharedPrefHelper {
-        return SharedPrefHelper(dlApplication.applicationContext, appUtil)
+    fun provideSharedPrefHelper(@ApplicationContext context: Context, appUtil: AppUtil): SharedPrefHelper {
+        return SharedPrefHelper(context, appUtil)
     }
 }

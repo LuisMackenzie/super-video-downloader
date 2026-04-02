@@ -7,6 +7,17 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.coveralls) apply false
+    alias(libs.plugins.jetbrains.kotlin.jvm) apply false
+}
+
+// Force javapoet 1.13.0 in the build classpath so Hilt's AggregateDepsTask
+// does not get the older 1.10.0 bundled by databinding-compiler-common.
+buildscript {
+    configurations.configureEach {
+        resolutionStrategy {
+            force("com.squareup:javapoet:1.13.0")
+        }
+    }
 }
 
 

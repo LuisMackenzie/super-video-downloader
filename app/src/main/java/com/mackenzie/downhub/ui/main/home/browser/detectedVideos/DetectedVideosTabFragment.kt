@@ -1,6 +1,6 @@
 package com.mackenzie.downhub.ui.main.home.browser.detectedVideos
 
-import VideoInfoAdapter
+import com.mackenzie.downhub.ui.component.adapter.VideoInfoAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +15,15 @@ import com.mackenzie.downhub.ui.main.base.BaseFragment
 import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.ui.main.progress.WrapContentLinearLayoutManager
 import com.mackenzie.downhub.util.AppUtil
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetectedVideosTabFragment : BaseFragment() {
     var detectedVideosTabViewModel: VideoDetectionTabViewModel? = null
     var candidateFormatListener: DownloadTabListener? = null
 
-    @Inject
-    lateinit var mainActivity: MainActivity
+    private val mainActivity get() = requireActivity() as MainActivity
 
     @Inject
     lateinit var appUtil: AppUtil

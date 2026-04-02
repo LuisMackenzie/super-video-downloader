@@ -26,8 +26,8 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -53,6 +53,7 @@ import com.mackenzie.downhub.util.SingleLiveEvent
 import com.mackenzie.downhub.util.VideoUtils
 import com.mackenzie.downhub.util.proxy_utils.CustomProxyController
 import com.mackenzie.downhub.util.proxy_utils.OkHttpProxyClient
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -113,6 +114,7 @@ private const val ROOT_BROWSER_INDEX = 1
 const val TAB_INDEX_KEY = "TAB_INDEX_KEY"
 
 //@OpenForTesting
+@AndroidEntryPoint
 class BrowserFragment : BaseFragment(), BrowserServicesProvider {
 
     companion object {
@@ -129,11 +131,7 @@ class BrowserFragment : BaseFragment(), BrowserServicesProvider {
 
     private lateinit var drawerAdapter: WebTabsAdapter
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var mainActivity: MainActivity
+    private val mainActivity get() = requireActivity() as MainActivity
 
     @Inject
     lateinit var appUtil: AppUtil
@@ -150,15 +148,15 @@ class BrowserFragment : BaseFragment(), BrowserServicesProvider {
     @VisibleForTesting
     internal lateinit var dataBinding: FragmentBrowserBinding
 
-    private lateinit var browserViewModel: BrowserViewModel
+    private val browserViewModel: BrowserViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
 
-    private lateinit var historyModel: HistoryViewModel
+    private val historyModel: HistoryViewModel by viewModels()
 
     private lateinit var settingsModel: SettingsViewModel
 
-    private lateinit var videoDetectionModel: GlobalVideoDetectionModel
+    private val videoDetectionModel: GlobalVideoDetectionModel by viewModels()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -302,10 +300,6 @@ class BrowserFragment : BaseFragment(), BrowserServicesProvider {
         swController.serviceWorkerWebSettings.allowContentAccess = true
 
         mainViewModel = mainActivity.mainViewModel
-        browserViewModel = ViewModelProvider(this, viewModelFactory)[BrowserViewModel::class.java]
-        historyModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
-        videoDetectionModel =
-            ViewModelProvider(this, viewModelFactory)[GlobalVideoDetectionModel::class.java]
 
         videoDetectionModel.settingsModel = mainActivity.settingsViewModel
         browserViewModel.settingsModel = mainActivity.settingsViewModel

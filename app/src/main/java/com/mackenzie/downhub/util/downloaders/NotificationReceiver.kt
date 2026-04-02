@@ -1,5 +1,6 @@
 package com.mackenzie.downhub.util.downloaders
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.mackenzie.downhub.data.local.room.entity.ProgressInfo
@@ -9,22 +10,21 @@ import com.mackenzie.downhub.util.AppLogger
 import com.mackenzie.downhub.util.downloaders.custom_downloader.CustomRegularDownloader
 import com.mackenzie.downhub.util.downloaders.super_x_downloader.SuperXDownloader
 import com.mackenzie.downhub.util.downloaders.youtubedl_downloader.YoutubeDlDownloader
-import dagger.android.DaggerBroadcastReceiver
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NotificationReceiver : DaggerBroadcastReceiver() {
+@AndroidEntryPoint
+class NotificationReceiver : BroadcastReceiver() {
     @Inject
     lateinit var progressRepository: ProgressRepository
 
     private val receiverScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onReceive(context: Context, intent: Intent) {
-        super.onReceive(context, intent)
-
         val taskId = intent.extras?.getString(TASK_ID)
         receiverScope.launch {
             val progressInfo = progressRepository.getProgressInfos().blockingFirst()

@@ -1,5 +1,6 @@
 package com.mackenzie.downhub.util.proxy_utils
 
+import com.mackenzie.downhub.data.local.model.Proxy.Companion.noProxy
 import okhttp3.Authenticator
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
@@ -30,7 +31,7 @@ class OkHttpProxyClient @Inject constructor(
                     .build()
             }
             httpClientCached =
-                if (proxy == com.mackenzie.downhub.data.local.model.Proxy.Companion.noProxy()) {
+                if (proxy == noProxy()) {
                     okHttpClient?.newBuilder()!!.build()
                 } else {
                     okHttpClient?.newBuilder()

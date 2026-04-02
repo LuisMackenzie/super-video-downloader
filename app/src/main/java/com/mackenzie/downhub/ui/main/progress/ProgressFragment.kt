@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
@@ -21,23 +21,20 @@ import com.mackenzie.downhub.ui.main.base.BaseFragment
 import com.mackenzie.downhub.ui.main.home.MainActivity
 import com.mackenzie.downhub.ui.main.home.MainViewModel
 import com.mackenzie.downhub.util.AppLogger
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.core.view.get
 
 //@OpenForTesting
+@AndroidEntryPoint
 class ProgressFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = ProgressFragment()
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val mainActivity get() = requireActivity() as MainActivity
 
-    @Inject
-    lateinit var mainActivity: MainActivity
-
-    private lateinit var progressViewModel: ProgressViewModel
+    private val progressViewModel: ProgressViewModel by viewModels()
 
     private lateinit var mainViewModel: MainViewModel
 
@@ -49,7 +46,6 @@ class ProgressFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         mainViewModel = mainActivity.mainViewModel
-        progressViewModel = ViewModelProvider(this, viewModelFactory)[ProgressViewModel::class.java]
         progressAdapter = ProgressAdapter(emptyList(), progressListener)
 
         val isDark = mainActivity.settingsViewModel.isDarkMode.get()
