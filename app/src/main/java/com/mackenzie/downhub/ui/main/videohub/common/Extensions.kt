@@ -171,17 +171,17 @@ fun CastSession.loadVideoOnCast(videoUrl: String, headers: Map<String, String> =
     remoteMediaClient.load(loadRequest)
 }
 
-fun Activity.setExternalPlayerMode(modeExternal: Boolean) {
-    val sharedPref = getPreferences(Context.MODE_PRIVATE)
-    requireNotNull(sharedPref)
+fun Context.setExternalPlayerMode(modeExternal: Boolean) {
+    val sharedPref = getSharedPreferences("video_player_prefs", Context.MODE_PRIVATE)
+    requireNotNull(sharedPref) { "No se pudo obtener SharedPreferences para video_player_prefs" }
     sharedPref.edit {
         putBoolean("external_player_mode", modeExternal)
     }
     Log.v("SetMode", "SET::modeExternal=${modeExternal}")
 }
 
-fun Activity.getExternalPlayerMode(): Boolean {
-    val sharedPref = getPreferences(Context.MODE_PRIVATE)
+fun Context.getExternalPlayerMode(): Boolean {
+    val sharedPref = getSharedPreferences("video_player_prefs", Context.MODE_PRIVATE)
     val modeExternal = sharedPref.getBoolean("external_player_mode", false)
     Log.v("GetMode", "GET::modeExternal=${modeExternal}")
     return modeExternal
