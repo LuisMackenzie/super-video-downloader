@@ -32,7 +32,7 @@ fun Navigation() {
                 serverId = backStackEntry.findArg(NavArg.VideoHubServerId),
                 serverUrl = backStackEntry.findArg(NavArg.VideoHubServerUrl)
             ) { videoId, videoUrl, embedUrl ->
-                // navController.navigate(route= NavItem.PlayerScreen.createRoute(videoId, videoUrl.urlEncoder(), embedUrl.urlEncoder()) )
+                navController.navigate(route= NavItem.PlayerScreen.createRoute(videoId, videoUrl.urlEncoder(), embedUrl.urlEncoder()) )
             }
         }
 
