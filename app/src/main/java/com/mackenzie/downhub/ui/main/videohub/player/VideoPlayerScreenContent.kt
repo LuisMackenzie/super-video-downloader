@@ -39,7 +39,7 @@ fun VideoPlayerScreenContent(
     val context = LocalContext.current
     val activity = context as? Activity
     val state by vm.state.collectAsStateWithLifecycle()
-    val choosenPlayer = remember { activity?.getExternalPlayerMode() ?: false }
+    val choosenPlayer = remember { context.getExternalPlayerMode() }
 
     // Launcher que detecta cuando el usuario vuelve desde el reproductor externo
     val externalPlayerLauncher = rememberLauncherForActivityResult(
