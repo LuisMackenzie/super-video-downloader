@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Super-Downloader"
+rootProject.name = "Naughty-Downloader"
 include(":app")
 include(":UseCases")
 include(":domain")
