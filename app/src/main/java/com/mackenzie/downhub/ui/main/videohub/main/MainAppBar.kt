@@ -30,14 +30,15 @@ import com.mackenzie.downhub.ui.main.videohub.common.setExternalPlayerMode
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainAppBar() {
+fun MainAppBar(onSettingsButtonClicked: (() -> Unit) = {}) {
     val context = LocalContext.current
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         actions = {
             AppBarAction(Icons.Default.Search, onClick = { /*TODO*/ })
             AppBarAction(Icons.Default.Settings, onClick = {
-                onSettingsClick(context)
+                // onSettingsClick(context)
+                    onSettingsButtonClicked()
             })
         },
         navigationIcon = {

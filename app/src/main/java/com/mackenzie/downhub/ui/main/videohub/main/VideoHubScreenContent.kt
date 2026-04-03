@@ -10,11 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun VideoHubScreenContent(
+    onSettingsButtonClicked: (() -> Unit) = {},
     onNavigate: (Int, String) -> Unit = { serverId, serverUrl -> }
 ) {
 
     Scaffold(
-        topBar = { MainAppBar() }
+        topBar = { MainAppBar(onSettingsButtonClicked) }
     ) { padding ->
 
         val ctx = LocalContext.current

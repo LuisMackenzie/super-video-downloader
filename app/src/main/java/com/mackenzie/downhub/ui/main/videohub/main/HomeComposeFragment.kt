@@ -30,19 +30,28 @@ class HomeComposeFragment : BaseFragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 LaunchHomeVideoHub(
-                    onOpenInBrowser = { url ->
-                        mainActivity.mainViewModel.openedUrl.set(url)
+                    onSettingsButtonClicked = {
+                        mainActivity.onSettingsClicked()
                         mainActivity.mainViewModel.currentItem.set(1)
                     }
-                )
+                ) { url ->
+                    mainActivity.mainViewModel.openedUrl.set(url)
+                    mainActivity.mainViewModel.currentItem.set(1)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun LaunchHomeVideoHub(onOpenInBrowser: ((String) -> Unit)? = null) {
+private fun LaunchHomeVideoHub(
+    onSettingsButtonClicked: (() -> Unit) = {},
+    onOpenInBrowser: ((String) -> Unit)
+) {
     MainTheme {
-        Navigation(onOpenInBrowser = onOpenInBrowser)
+        Navigation(
+            onSettingsButtonClicked = onSettingsButtonClicked,
+            onOpenInBrowser = onOpenInBrowser
+        )
     }
 }

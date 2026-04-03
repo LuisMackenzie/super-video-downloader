@@ -230,4 +230,10 @@ class MainActivity : BaseActivity() {
         // CHANGES HANDLING
         settingsViewModel.isLockPortrait.addOnPropertyChangedCallback(screenOrientationCallback)
     }
+
+    fun getOnSettingsClicked():Boolean = sharedPrefHelper.getIsSettingsClicked()
+
+    fun onSettingsClicked() = sharedPrefHelper.setIsSettingsClicked(true)
+
+    fun onSettingsClickedReset() = sharedPrefHelper.setIsSettingsClicked(false)
 }

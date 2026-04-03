@@ -16,7 +16,10 @@ import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
 import com.mackenzie.downhub.util.SharedPrefHelper
 
 @Composable
-fun Navigation(onOpenInBrowser: ((String) -> Unit)? = null) {
+fun Navigation(
+    onOpenInBrowser: ((String) -> Unit),
+    onSettingsButtonClicked: (() -> Unit)
+    ) {
 
     val context = LocalContext.current
     val navController = rememberNavController()
@@ -26,11 +29,11 @@ fun Navigation(onOpenInBrowser: ((String) -> Unit)? = null) {
         startDestination = NavItem.VideoServersScreen.route
     ) {
         composable(NavItem.VideoServersScreen) {
-            VideoHubScreenContent() { serverId, serverUrl ->
+            VideoHubScreenContent(onSettingsButtonClicked) { serverId, serverUrl ->
                 val openInBrowser = context
                     .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)
                     .getBoolean(SharedPrefHelper.IS_OPEN_SERVER_IN_BROWSER, false)
-                if (openInBrowser && onOpenInBrowser != null) {
+                if (openInBrowser) {
                     onOpenInBrowser(serverUrl)
                 } else {
                     navController.navigate(route = NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
