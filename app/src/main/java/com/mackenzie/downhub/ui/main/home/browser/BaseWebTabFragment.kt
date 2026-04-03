@@ -232,7 +232,7 @@ abstract class BaseWebTabFragment : BaseFragment() {
             .setText(url).startChooser()
     }
 
-    private fun navigateToSettings() {
+    fun navigateToSettings() {
         try {
             val currentFragment = this
             val activityFragmentContainer =
