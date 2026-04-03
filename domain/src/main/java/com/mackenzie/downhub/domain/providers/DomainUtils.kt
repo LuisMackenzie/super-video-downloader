@@ -6,13 +6,13 @@ import com.mackenzie.downhub.domain.VideoItemType
 
 internal fun getSFWUrlVideo(id: Int): String {
     return when (id % 5) {
-        // 0 -> "https://test-streams.mux.dev/tos_ismc/main.m3u8" // Cohetes
-        0 -> "https://gvideo.eporner.com/ZdRqusXAonP/ZdRqusXAonP.mp4" // Cohetes
-        // 1 -> "https://test-streams.mux.dev/dai-discontinuity-deltatre/manifest.m3u8" // Sports Highlights
-        1 -> "https://www.youporn.com/watch/190872831/" // Sports Highlights
+        0 -> "https://test-streams.mux.dev/tos_ismc/main.m3u8" // Cohetes
+        // 0 -> "https://gvideo.eporner.com/ZdRqusXAonP/ZdRqusXAonP.mp4" // ** prueba de video directo
+        1 -> "https://test-streams.mux.dev/dai-discontinuity-deltatre/manifest.m3u8" // Sports Highlights
+        // 1 -> "https://www.youporn.com/watch/190872831/" // ** prueba de video directo
         2 -> "https://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8" // Skate Phantom Flex 4K
-        // 3 -> "https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8" // Cohetes
-        3 -> "https://video.beeg.com/key=uVIMsdI2+BXo5zmgpDO0CA,end=1774036791,limit=3/data=P9AKGE3ByX/media=hls4A/multi=426x240:240p:YXZjMS42NDAwMTUsbXA0YS40MC4y,640x360:360p:YXZjMS42NDAwMUUsbXA0YS40MC4y,854x480:480p:YXZjMS42NDAwMUUsbXA0YS40MC4y,1280x720:720p:YXZjMS42NDAwMUYsbXA0YS40MC4y,1920x1080:1080p:YXZjMS42NDAwMzIsbXA0YS40MC4y/_TPL_/734716432721532.mp4" // Cohetes
+        3 -> "https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8" // Cohetes
+        // 3 -> "https://video.beeg.com/key=uVIMsdI2+BXo5zmgpDO0CA,end=1774036791,limit=3/data=P9AKGE3ByX/media=hls4A/multi=426x240:240p:YXZjMS42NDAwMTUsbXA0YS40MC4y,640x360:360p:YXZjMS42NDAwMUUsbXA0YS40MC4y,854x480:480p:YXZjMS42NDAwMUUsbXA0YS40MC4y,1280x720:720p:YXZjMS42NDAwMUYsbXA0YS40MC4y,1920x1080:1080p:YXZjMS42NDAwMzIsbXA0YS40MC4y/_TPL_/734716432721532.mp4" // prueba de video directo
         else -> "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" // Big Buck Bunny
     }
 }
