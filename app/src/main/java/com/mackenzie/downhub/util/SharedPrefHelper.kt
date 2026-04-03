@@ -55,6 +55,7 @@ class SharedPrefHelper @Inject constructor(
         private const val IS_EXTERNAL_PLAYER_MODE = "external_player_mode"
 
         const val IS_OPEN_SERVER_IN_BROWSER = "IS_OPEN_SERVER_IN_BROWSER"
+        private const val IS_SETTINGS_CLICKED = "IS_SETTINGS_CLICKED"
     }
 
     private val gson = Gson()
@@ -405,6 +406,14 @@ class SharedPrefHelper @Inject constructor(
 
     fun setIsOpenServerInBrowser(isOpen: Boolean) {
         sharedPreferences.edit { putBoolean(IS_OPEN_SERVER_IN_BROWSER, isOpen) }
+    }
+
+    fun getIsSettingsClicked(): Boolean {
+        return sharedPreferences.getBoolean(IS_SETTINGS_CLICKED, false)
+    }
+
+    fun setIsSettingsClicked(isClicked: Boolean) {
+        sharedPreferences.edit { putBoolean(IS_SETTINGS_CLICKED, isClicked) }
     }
 
 }
