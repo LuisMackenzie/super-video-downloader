@@ -137,11 +137,17 @@ class BrowserHomeFragment : BaseWebTabFragment() {
         val bookmarksList = mainViewModel.bookmarksList.get()?.toMutableList()
         mainViewModel.bookmarksList.set(bookmarksList)
         val openingUrl = mainViewModel.openedUrl.get()
+        val isSettingsCLicked = sharedPrefHelper.getIsSettingsClicked()
         Log.e("BrowserHomeFragment", "onViewCreated: openedUrl = $openingUrl")
         if (openingUrl != null) {
             binding.homeEtSearch.text = Editable.Factory.getInstance().newEditable(openingUrl)
             openNewTab(openingUrl)
             mainViewModel.openedUrl.set(null)
+        }
+        if (isSettingsCLicked) {
+            mainViewModel.openedUrl.set(null)
+            sharedPrefHelper.setIsSettingsClicked(false)
+            navigateToSettings()
         }
     }
 
