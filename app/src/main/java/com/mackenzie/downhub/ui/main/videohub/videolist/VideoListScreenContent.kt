@@ -52,7 +52,7 @@ fun VideoListScreenContent(
             }
             else -> {
                 VideoHubList(
-                    itemSection01 = if (serverId == 88) getMedia() else state.videos,
+                    itemSection01 = if (serverId == 258) getMedia() else state.videos,
                     titleServer = getNameById(serverId),
                     padding = padding,
                     onItemClick = { item ->

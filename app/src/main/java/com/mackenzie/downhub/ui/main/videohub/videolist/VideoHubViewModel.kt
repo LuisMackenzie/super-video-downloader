@@ -39,10 +39,10 @@ class VideoHubViewModel @Inject constructor(
             2 -> getDefaultVideoList()
             3 -> getBeegVideoList(serverId, serverUrl)
             4, 9, 14 -> getSecondaryVideoList(serverId, serverUrl)
-            1, 5, 6, 7, 8, 11, 12, 15, 16, 17, 50, 51, 54, 55, 66, 67, 68 -> getTertiaryVideoList(serverId, serverUrl)
-            10, 13, 18, 19, in 20..29, 57, 60, 62, 65 -> getPrimaryVideoList(serverId, serverUrl)
+            1, 5, 6, 7, 8, 11, 12, 15, 16, 17, 200, 201, 204, 205, 216, 217, 218 -> getTertiaryVideoList(serverId, serverUrl)
+            10, 13, 18, 19, in 20..29, 207, 210, 212, 215 -> getPrimaryVideoList(serverId, serverUrl)
             // 12, 16, 17, 50, 51 -> getTertiaryVideoList(serverId, serverUrl)
-            88 -> { /* Mock server, no loading needed */ }
+            258 -> { /* Mock server, no loading needed */ }
             else -> {
                 getPrimaryVideoList(serverId, serverUrl)
                 android.util.Log.e("VideoHubViewModel", "Unknown server ID: $serverId")

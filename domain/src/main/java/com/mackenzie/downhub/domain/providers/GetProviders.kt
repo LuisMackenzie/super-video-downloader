@@ -4,7 +4,7 @@ import com.mackenzie.downhub.domain.ServerStatus
 import com.mackenzie.downhub.domain.VideoItem
 import com.mackenzie.downhub.domain.VideoItemType
 
-fun getHentaiServers() = (50..69).map {
+fun getHentaiServers() = (200..219).map {
     VideoItem(
         it,
         getNameById(it),
@@ -16,7 +16,7 @@ fun getHentaiServers() = (50..69).map {
     )
 }
 
-fun getLiveCamsServers() = (80..88).map {
+fun getLiveCamsServers() = (250..258).map {
     VideoItem(
         it,
         getNameById(it),
