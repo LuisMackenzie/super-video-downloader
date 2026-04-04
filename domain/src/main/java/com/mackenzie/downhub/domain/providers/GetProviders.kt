@@ -16,7 +16,7 @@ fun getHentaiServers() = (200..219).map {
     )
 }
 
-fun getLiveCamsServers() = (250..258).map {
+fun getLiveCamsServers() = (250..279).map {
     VideoItem(
         it,
         getNameById(it),
