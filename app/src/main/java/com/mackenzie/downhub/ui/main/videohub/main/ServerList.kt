@@ -67,14 +67,7 @@ fun ServerList(
                 item = item,
                 modifier = Modifier.padding(4.dp),
                 onFavoriteClick = onFavoriteClick,
-                onItemClick = {
-                    if (item.id == 258) {
-                        onItemClick(item)
-                    } else {
-                        Toast.makeText( ctx, "LiveCams Section Under Development!", Toast.LENGTH_SHORT).show()
-                    }
-                    // onItemClick(item)
-                }
+                onItemClick = { onItemClick(item) }
             )
         }
 
