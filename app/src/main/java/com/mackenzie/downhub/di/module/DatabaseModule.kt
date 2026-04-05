@@ -6,6 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.mackenzie.downhub.data.local.room.AppDatabase
 import com.mackenzie.downhub.data.local.room.dao.ConfigDao
+import com.mackenzie.downhub.data.local.room.dao.FavoriteDao
 import com.mackenzie.downhub.data.local.room.dao.HistoryDao
 import com.mackenzie.downhub.data.local.room.dao.PageDao
 import com.mackenzie.downhub.data.local.room.dao.ProgressDao
@@ -63,6 +64,24 @@ val MIGRATION_7_8 = object : Migration(7, 8) {
     }
 }
 
+val MIGRATION_8_9 = object : Migration(8, 9) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS FavoriteItem (
+                id INTEGER NOT NULL PRIMARY KEY,
+                title TEXT NOT NULL,
+                thumb TEXT NOT NULL,
+                url TEXT NOT NULL,
+                videoItemType TEXT NOT NULL,
+                isOffline INTEGER NOT NULL DEFAULT 0,
+                canChargeList INTEGER NOT NULL DEFAULT 0,
+                isFullyFunctional INTEGER NOT NULL DEFAULT 0,
+                description TEXT NOT NULL
+            )""".trimIndent()
+        )
+    }
+}
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -78,7 +97,8 @@ class DatabaseModule {
             MIGRATION_4_5,
             MIGRATION_5_6,
             MIGRATION_6_7,
-            MIGRATION_7_8
+            MIGRATION_7_8,
+            MIGRATION_8_9
         ).build()
     }
 
@@ -101,4 +121,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun providePageDao(database: AppDatabase): PageDao = database.pageDao()
+
+    @Singleton
+    @Provides
+    fun provideFavoriteDao(database: AppDatabase): FavoriteDao = database.favoriteDao()
 }

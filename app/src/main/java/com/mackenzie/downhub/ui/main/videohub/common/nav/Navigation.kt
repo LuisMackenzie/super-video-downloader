@@ -3,7 +3,11 @@ package com.mackenzie.downhub.ui.main.videohub.common.nav
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -11,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesScreenContent
+import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesViewModel
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
 import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
@@ -19,11 +24,21 @@ import com.mackenzie.downhub.util.SharedPrefHelper
 @Composable
 fun Navigation(
     onOpenInBrowser: ((String) -> Unit),
-    onSettingsButtonClicked: (() -> Unit)
+    onSettingsButtonClicked: (() -> Unit),
+    favoritesViewModel: FavoritesViewModel = hiltViewModel()
     ) {
 
     val context = LocalContext.current
     val navController = rememberNavController()
+
+    // val favoritesViewModel: FavoritesViewModel = hiltViewModel()
+    val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
+    val favorites by favoritesViewModel.favorites.collectAsState()
+
+    DisposableEffect(Unit) {
+        favoritesViewModel.start()
+        onDispose { favoritesViewModel.stop() }
+    }
 
     NavHost(
         navController = navController,
@@ -33,6 +48,8 @@ fun Navigation(
             VideoHubScreenContent(
                 onSettingsButtonClicked = onSettingsButtonClicked,
                 onFavoriteButtonClicked = { navController.navigate(route = NavItem.FavoriteScreen.route) },
+                favoriteIds = favoriteIds,
+                onToggleFavorite = { item -> favoritesViewModel.toggleFavorite(item) },
             ) { serverId, serverUrl ->
                 val openInBrowser = context
                     .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)
@@ -68,8 +85,11 @@ fun Navigation(
 
         composable(NavItem.FavoriteScreen) {
             FavoritesScreenContent(
+                favorites = favorites,
+                favoriteIds = favoriteIds,
                 onSettingsButtonClicked = onSettingsButtonClicked,
-                onFavoriteButtonClicked = { navController.navigate(route = NavItem.VideoServersScreen.route)  }
+                onFavoriteButtonClicked = { navController.navigate(route = NavItem.VideoServersScreen.route) },
+                onToggleFavorite = { item -> favoritesViewModel.toggleFavorite(item) },
             ) { serverId, serverUrl ->
                 val openInBrowser = context
                     .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)

@@ -9,6 +9,7 @@ import com.mackenzie.downhub.data.remote.VideoRemoteDataSource
 import com.mackenzie.downhub.di.qualifier.LocalData
 import com.mackenzie.downhub.di.qualifier.RemoteData
 import com.mackenzie.downhub.data.local.ConfigLocalDataSource
+import com.mackenzie.downhub.data.local.FavoritesLocalDataSource
 import com.mackenzie.downhub.data.local.HistoryLocalDataSource
 import com.mackenzie.downhub.data.local.ProgressLocalDataSource
 import com.mackenzie.downhub.data.local.TopPagesLocalDataSource
@@ -16,6 +17,8 @@ import com.mackenzie.downhub.data.local.VideoLocalDataSource
 import com.mackenzie.downhub.data.remote.datasource.VideoHubDataSource
 import com.mackenzie.downhub.data.repository.ConfigRepository
 import com.mackenzie.downhub.data.repository.ConfigRepositoryImpl
+import com.mackenzie.downhub.data.repository.FavoritesRepository
+import com.mackenzie.downhub.data.repository.FavoritesRepositoryImpl
 import com.mackenzie.downhub.data.repository.HistoryRepository
 import com.mackenzie.downhub.data.repository.HistoryRepositoryImpl
 import com.mackenzie.downhub.data.repository.ProgressRepository
@@ -94,6 +97,15 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindHistoryRepositoryImpl(historyRepository: HistoryRepositoryImpl): HistoryRepository
+
+    @Singleton
+    @Binds
+    @LocalData
+    abstract fun bindFavoritesLocalDataSource(localDataSource: FavoritesLocalDataSource): FavoritesRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindFavoritesRepositoryImpl(favoritesRepository: FavoritesRepositoryImpl): FavoritesRepository
 
     @Singleton
     @Binds

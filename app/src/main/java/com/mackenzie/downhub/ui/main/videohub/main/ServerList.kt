@@ -1,6 +1,5 @@
 package com.mackenzie.downhub.ui.main.videohub.main
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mackenzie.downhub.BuildConfig
@@ -27,12 +25,12 @@ fun ServerList(
     itemSection01: List<VideoItem> = getVideoServers(),
     itemSection02: List<VideoItem> = getLiveCamsServers(),
     itemSection03: List<VideoItem> = getHentaiServers(),
+    favoriteIds: Set<Int> = emptySet(),
     padding: PaddingValues = PaddingValues(),
-    onFavoriteClick: () -> Unit = {},
+    onFavoriteClick: (VideoItem) -> Unit = {},
     onItemClick: (VideoItem) -> Unit = {}
 ) {
 
-    val ctx = LocalContext.current
     val flavor = BuildConfig.DEBUG
     val filteredItems01 = itemSection01.filter { it.status.isFullyFunctional }
     val filteredItems02 = itemSection02.filter { it.status.isFullyFunctional }
@@ -53,6 +51,7 @@ fun ServerList(
         items(if (flavor) itemSection01 else filteredItems01) { item ->
             RenderServerItem(
                 item = item,
+                isFavorite = favoriteIds.contains(item.id),
                 modifier = Modifier.padding(4.dp),
                 onFavoriteClick = onFavoriteClick,
                 onItemClick = { onItemClick(item) }
@@ -65,6 +64,7 @@ fun ServerList(
         items(itemSection02) { item ->
             RenderServerItem(
                 item = item,
+                isFavorite = favoriteIds.contains(item.id),
                 modifier = Modifier.padding(4.dp),
                 onFavoriteClick = onFavoriteClick,
                 onItemClick = { onItemClick(item) }
@@ -77,6 +77,7 @@ fun ServerList(
         items(if (flavor) itemSection03 else filteredItems03) { item ->
             RenderServerItem(
                 item = item,
+                isFavorite = favoriteIds.contains(item.id),
                 modifier = Modifier.padding(4.dp),
                 onFavoriteClick = onFavoriteClick,
                 onItemClick = { onItemClick(item) }

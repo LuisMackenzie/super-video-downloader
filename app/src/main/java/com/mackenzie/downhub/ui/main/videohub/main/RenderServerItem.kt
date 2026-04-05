@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Mic
@@ -47,7 +48,8 @@ import com.mackenzie.downhub.domain.mocks.getMedia2
 fun RenderServerItem(
     modifier: Modifier = Modifier,
     item: VideoItem = getMedia2().first(),
-    onFavoriteClick: () -> Unit = {},
+    isFavorite: Boolean = false,
+    onFavoriteClick: (VideoItem) -> Unit = {},
     onItemClick: (VideoItem) -> Unit = {}
 ) {
     Card(
@@ -97,13 +99,13 @@ fun RenderServerItem(
             )
 
             Icon(
-                imageVector = Icons.Default.FavoriteBorder,
+                imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground,
+                tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
                     .size(30.dp)
                     .align(Alignment.TopEnd)
-                    .clickable { onFavoriteClick() }
+                    .clickable { onFavoriteClick(item) }
 
             )
 
@@ -117,7 +119,6 @@ fun RenderServerItem(
                         .size(20.dp)
                         .background(Color.Red, shape = MaterialTheme.shapes.medium)
                         .align(Alignment.TopStart)
-                        .clickable { onFavoriteClick() }
 
                 )
             }
@@ -135,7 +136,6 @@ fun RenderServerItem(
                             shape = MaterialTheme.shapes.medium
                         )
                         .align(Alignment.BottomEnd)
-                        .clickable { onFavoriteClick() }
 
                 )
             }
