@@ -2,6 +2,9 @@ package com.mackenzie.downhub.ui.main.videohub.favs
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -9,18 +12,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mackenzie.downhub.ui.main.videohub.main.MainAppBar
 import com.mackenzie.downhub.ui.main.videohub.main.ServerList
 
-class FavoritesScreenContent {
-}
-
 @Preview
 @Composable
 fun FavoritesScreenContent(
     onSettingsButtonClicked: (() -> Unit) = {},
+    onFavoriteButtonClicked: () -> Unit = {},
     onNavigate: (Int, String) -> Unit = { serverId, serverUrl -> }
 ) {
 
     Scaffold(
-        topBar = { MainAppBar(onSettingsButtonClicked) }
+        topBar = { MainAppBar(
+            title = "Favorites Servers",
+            imageVector = Icons.Default.FavoriteBorder,
+            onSettingsButtonClicked = onSettingsButtonClicked,
+            onFavoriteButtonClicked = onFavoriteButtonClicked
+        ) }
     ) { padding ->
 
         val ctx = LocalContext.current

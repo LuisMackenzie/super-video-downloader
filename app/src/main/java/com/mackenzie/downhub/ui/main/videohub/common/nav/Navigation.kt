@@ -30,7 +30,10 @@ fun Navigation(
         startDestination = NavItem.VideoServersScreen.route
     ) {
         composable(NavItem.VideoServersScreen) {
-            VideoHubScreenContent(onSettingsButtonClicked) { serverId, serverUrl ->
+            VideoHubScreenContent(
+                onSettingsButtonClicked = onSettingsButtonClicked,
+                onFavoriteButtonClicked = { navController.navigate(route = NavItem.FavoriteScreen.route) },
+            ) { serverId, serverUrl ->
                 val openInBrowser = context
                     .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)
                     .getBoolean(SharedPrefHelper.IS_OPEN_SERVER_IN_BROWSER, false)
@@ -64,7 +67,19 @@ fun Navigation(
         }
 
         composable(NavItem.FavoriteScreen) {
-            FavoritesScreenContent()
+            FavoritesScreenContent(
+                onSettingsButtonClicked = onSettingsButtonClicked,
+                onFavoriteButtonClicked = { navController.navigate(route = NavItem.VideoServersScreen.route)  }
+            ) { serverId, serverUrl ->
+                val openInBrowser = context
+                    .getSharedPreferences(SharedPrefHelper.PREF_KEY, Context.MODE_PRIVATE)
+                    .getBoolean(SharedPrefHelper.IS_OPEN_SERVER_IN_BROWSER, false)
+                if (openInBrowser) {
+                    onOpenInBrowser(serverUrl)
+                } else {
+                    navController.navigate(route = NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
+                }
+            }
         }
     }
 }

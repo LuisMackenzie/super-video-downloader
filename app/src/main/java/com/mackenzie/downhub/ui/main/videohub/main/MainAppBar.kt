@@ -6,8 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,16 +29,20 @@ import com.mackenzie.downhub.ui.main.videohub.common.setExternalPlayerMode
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainAppBar(onSettingsButtonClicked: (() -> Unit) = {}) {
+fun MainAppBar(
+    title: String = stringResource(R.string.app_name),
+    imageVector: ImageVector = Icons.Default.Favorite,
+    onSettingsButtonClicked: (() -> Unit) = {},
+    onFavoriteButtonClicked: () -> Unit = {},
+) {
     val context = LocalContext.current
     TopAppBar(
-        title = { Text(stringResource(R.string.app_name)) },
+        title = { Text(title) },
         actions = {
-            // AppBarAction(Icons.Default.Search, onClick = { /*TODO*/ })
-            AppBarAction(Icons.Default.Settings, onClick = {
-                // onSettingsClick(context)
-                    onSettingsButtonClicked()
-            })
+            AppBarAction(imageVector,
+                onClick = { onFavoriteButtonClicked() })
+            AppBarAction(Icons.Default.Settings,
+                onClick = { onSettingsButtonClicked() })
         },
         navigationIcon = {
             // NavigationMenuButton(Icons.Default.Menu, onClick = { /*TODO*/ })
