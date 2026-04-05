@@ -98,6 +98,11 @@
     <string name="downloads_folder">Downloads folder</string>
     <string name="hidden_folder">Hidden folder</string>
     <string name="sd_app_folder">SD app folder</string>
+    <string name="custom_path_option">Custom path</string>
+    <string name="custom_path_title">Custom Download Path</string>
+    <string name="custom_path_message">Enter the full path where you want to save downloads:</string>
+    <string name="custom_path_hint">/storage/emulated/0/MyDownloads</string>
+    <string name="custom_path_invalid">Invalid path. The folder does not exist or is not writable.</string>
     <string name="host_hint">Host</string>
     <string name="port_hint">Port</string>
     <string name="login_hint">User</string>

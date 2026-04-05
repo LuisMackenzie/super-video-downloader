@@ -18,7 +18,7 @@ import javax.inject.Inject
 import kotlin.math.max
 
 enum class StorageType {
-    SD, HIDDEN, HIDDEN_SD
+    SD, HIDDEN, HIDDEN_SD, CUSTOM
 }
 
 //@OpenForTesting
@@ -32,6 +32,8 @@ class SettingsViewModel @Inject constructor(
     val m3u8ThreadsCount = ObservableInt(4)
     val videoDetectionTreshold = ObservableInt(4 * 1024 * 1024)
     val storageType = ObservableField(StorageType.SD)
+    val customPathDisplay = ObservableField("")
+    val showCustomPathPickerEvent = SingleLiveEvent<Void?>()
 
     val clearCookiesEvent = SingleLiveEvent<Void?>()
     val openVideoFolderEvent = SingleLiveEvent<Void?>()
@@ -81,7 +83,11 @@ class SettingsViewModel @Inject constructor(
             isDrmEnabled.set(sharedPrefHelper.getIsDrmEnabled())
             isExternalPlayerMode.set(sharedPrefHelper.getIsExternalPlayerMode())
             isOpenServerInBrowser.set(sharedPrefHelper.getIsOpenServerInBrowser())
-            if (sharedPrefHelper.getIsExternalUse() && !sharedPrefHelper.getIsAppDirUse()) {
+            val customPath = sharedPrefHelper.getCustomDownloadPath()
+            if (sharedPrefHelper.getIsCustomPathUse() && customPath.isNotEmpty()) {
+                storageType.set(StorageType.CUSTOM)
+                customPathDisplay.set(customPath)
+            } else if (sharedPrefHelper.getIsExternalUse() && !sharedPrefHelper.getIsAppDirUse()) {
                 storageType.set(StorageType.SD)
             } else if (sharedPrefHelper.getIsAppDirUse() && sharedPrefHelper.getIsExternalUse()) {
                 storageType.set(StorageType.HIDDEN_SD)
@@ -318,33 +324,39 @@ class SettingsViewModel @Inject constructor(
     fun setDownloadsFolderSdCard() {
         FileUtil.Companion.IS_APP_DATA_DIR_USE = false
         FileUtil.Companion.IS_EXTERNAL_STORAGE_USE = true
+        FileUtil.Companion.IS_CUSTOM_PATH_USE = false
 
         viewModelScope.launch(Dispatchers.IO) {
             storageType.set(StorageType.SD)
             sharedPrefHelper.setIsExternalUse(true)
             sharedPrefHelper.setIsAppDirUse(false)
+            sharedPrefHelper.setIsCustomPathUse(false)
         }
     }
 
     fun setDownloadsFolderHidden() {
         FileUtil.Companion.IS_APP_DATA_DIR_USE = true
         FileUtil.Companion.IS_EXTERNAL_STORAGE_USE = false
+        FileUtil.Companion.IS_CUSTOM_PATH_USE = false
 
         viewModelScope.launch(Dispatchers.IO) {
             storageType.set(StorageType.HIDDEN)
             sharedPrefHelper.setIsExternalUse(false)
             sharedPrefHelper.setIsAppDirUse(true)
+            sharedPrefHelper.setIsCustomPathUse(false)
         }
     }
 
     fun setDownloadsFolderHiddenSdCard() {
         FileUtil.Companion.IS_APP_DATA_DIR_USE = true
         FileUtil.Companion.IS_EXTERNAL_STORAGE_USE = true
+        FileUtil.Companion.IS_CUSTOM_PATH_USE = false
 
         viewModelScope.launch(Dispatchers.IO) {
             storageType.set(StorageType.HIDDEN_SD)
             sharedPrefHelper.setIsExternalUse(true)
             sharedPrefHelper.setIsAppDirUse(true)
+            sharedPrefHelper.setIsCustomPathUse(false)
         }
     }
 
@@ -353,6 +365,26 @@ class SettingsViewModel @Inject constructor(
             val finalResult = max(0, progress)
             videoDetectionTreshold.set(finalResult)
             sharedPrefHelper.setVideoDetectionTreshold(finalResult)
+        }
+    }
+
+    fun onCustomPathOptionClicked() {
+        showCustomPathPickerEvent.call()
+    }
+
+    fun setDownloadsFolderCustom(path: String) {
+        FileUtil.Companion.IS_CUSTOM_PATH_USE = true
+        FileUtil.Companion.CUSTOM_PATH = path
+        FileUtil.Companion.IS_APP_DATA_DIR_USE = false
+        FileUtil.Companion.IS_EXTERNAL_STORAGE_USE = false
+
+        viewModelScope.launch(Dispatchers.IO) {
+            storageType.set(StorageType.CUSTOM)
+            customPathDisplay.set(path)
+            sharedPrefHelper.setIsCustomPathUse(true)
+            sharedPrefHelper.setCustomDownloadPath(path)
+            sharedPrefHelper.setIsExternalUse(false)
+            sharedPrefHelper.setIsAppDirUse(false)
         }
     }
 }

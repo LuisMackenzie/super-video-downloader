@@ -43,6 +43,9 @@ class FileUtil @Inject constructor() {
         // For downloads
         var IS_APP_DATA_DIR_USE = false
 
+        var IS_CUSTOM_PATH_USE = false
+        var CUSTOM_PATH = ""
+
         const val FOLDER_NAME = "SuperX"
         const val TMP_DATA_FOLDER_NAME = "superx_tmp_data"
 
@@ -94,6 +97,10 @@ class FileUtil @Inject constructor() {
         get() {
             if (!INITIIALIZED) {
                 throw Error("File Util Not Initialized")
+            }
+
+            if (IS_CUSTOM_PATH_USE && CUSTOM_PATH.isNotEmpty()) {
+                return File(CUSTOM_PATH)
             }
 
             val context = ContextUtils.getApplicationContext()

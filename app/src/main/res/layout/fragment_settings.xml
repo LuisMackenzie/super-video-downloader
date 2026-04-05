@@ -409,7 +409,26 @@
                         android:checked="@{viewModel.storageType == viewModel.storageType.HIDDEN_SD}"
                         android:onClick="@{() -> viewModel.setDownloadsFolderHiddenSdCard()}"
                         android:text="@string/sd_app_folder" />
+
+                    <RadioButton
+                        android:id="@+id/option_custom_path"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{viewModel.storageType == viewModel.storageType.CUSTOM}"
+                        android:onClick="@{() -> viewModel.onCustomPathOptionClicked()}"
+                        android:text="@string/custom_path_option" />
                 </RadioGroup>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/custom_path_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="8dp"
+                    android:text="@{viewModel.customPathDisplay}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:visibility="@{viewModel.storageType == viewModel.storageType.CUSTOM ? View.VISIBLE : View.GONE}" />
             </LinearLayout>
 
             <LinearLayout

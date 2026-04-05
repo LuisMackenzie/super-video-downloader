@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Observable
@@ -18,6 +20,7 @@ import com.mackenzie.downhub.util.FileUtil
 import com.mackenzie.downhub.util.IntentUtil
 import com.mackenzie.downhub.util.SystemUtil
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,6 +66,7 @@ class SettingsFragment : BaseFragment() {
                 StorageType.SD -> R.id.option_sd_card
                 StorageType.HIDDEN -> R.id.option_hidden_folder
                 StorageType.HIDDEN_SD -> R.id.option_sd_app_folder
+                StorageType.CUSTOM -> R.id.option_custom_path
                 else -> -1
             }
             if (newCheckId != -1 && dataBinding.storageOptions.checkedRadioButtonId != newCheckId) {
@@ -171,6 +175,9 @@ class SettingsFragment : BaseFragment() {
         settingsViewModel.openVideoFolderEvent.observe(viewLifecycleOwner) {
             intentUtil.openVideoFolder(context, fileUtil.folderDir.path)
         }
+        settingsViewModel.showCustomPathPickerEvent.observe(viewLifecycleOwner) {
+            showCustomPathDialog()
+        }
     }
 
     private fun setupTextUpdateCallbacks() {
@@ -181,6 +188,46 @@ class SettingsFragment : BaseFragment() {
         }
 
         tresholdCallback.onPropertyChanged(null, 0)
+    }
+
+    private fun showCustomPathDialog() {
+        val currentPath = settingsViewModel.customPathDisplay.get() ?: ""
+        val editText = EditText(requireContext()).apply {
+            setText(currentPath)
+            hint = getString(R.string.custom_path_hint)
+            setPadding(48, 32, 48, 16)
+            inputType = android.text.InputType.TYPE_CLASS_TEXT
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.custom_path_title))
+            .setMessage(getString(R.string.custom_path_message))
+            .setView(editText)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val path = editText.text.toString().trim()
+                if (path.isNotEmpty()) {
+                    val dir = File(path)
+                    if (dir.exists() && dir.canWrite() || dir.mkdirs()) {
+                        settingsViewModel.setDownloadsFolderCustom(path)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.custom_path_invalid),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        storageTypeCallback.onPropertyChanged(null, 0)
+                    }
+                } else {
+                    storageTypeCallback.onPropertyChanged(null, 0)
+                }
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                storageTypeCallback.onPropertyChanged(null, 0)
+            }
+            .setOnCancelListener {
+                storageTypeCallback.onPropertyChanged(null, 0)
+            }
+            .show()
     }
 
     private fun showDownloadWarningDialog(context: Context) {

@@ -56,6 +56,8 @@ class SharedPrefHelper @Inject constructor(
 
         const val IS_OPEN_SERVER_IN_BROWSER = "IS_OPEN_SERVER_IN_BROWSER"
         private const val IS_SETTINGS_CLICKED = "IS_SETTINGS_CLICKED"
+        private const val CUSTOM_DOWNLOAD_PATH = "CUSTOM_DOWNLOAD_PATH"
+        private const val IS_CUSTOM_PATH_USE = "IS_CUSTOM_PATH_USE"
     }
 
     private val gson = Gson()
@@ -155,6 +157,26 @@ class SharedPrefHelper @Inject constructor(
     fun setIsAppDirUse(isAppDirUse: Boolean) {
         sharedPreferences.edit {
             putBoolean(IS_APP_DIR_USE, isAppDirUse)
+        }
+    }
+
+    fun getIsCustomPathUse(): Boolean {
+        return sharedPreferences.getBoolean(IS_CUSTOM_PATH_USE, false)
+    }
+
+    fun setIsCustomPathUse(isCustomPath: Boolean) {
+        sharedPreferences.edit {
+            putBoolean(IS_CUSTOM_PATH_USE, isCustomPath)
+        }
+    }
+
+    fun getCustomDownloadPath(): String {
+        return sharedPreferences.getString(CUSTOM_DOWNLOAD_PATH, "") ?: ""
+    }
+
+    fun setCustomDownloadPath(path: String) {
+        sharedPreferences.edit {
+            putString(CUSTOM_DOWNLOAD_PATH, path)
         }
     }
 

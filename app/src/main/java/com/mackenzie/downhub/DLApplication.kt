@@ -83,9 +83,13 @@ open class DLApplication : Application(), SingletonImageLoader.Factory {
     private fun initializeFileUtils() {
         val isExternal = sharedPrefHelper.getIsExternalUse()
         val isAppDir = sharedPrefHelper.getIsAppDirUse()
+        val isCustomPath = sharedPrefHelper.getIsCustomPathUse()
+        val customPath = sharedPrefHelper.getCustomDownloadPath()
 
         FileUtil.Companion.IS_EXTERNAL_STORAGE_USE = isExternal
         FileUtil.Companion.IS_APP_DATA_DIR_USE = isAppDir
+        FileUtil.Companion.IS_CUSTOM_PATH_USE = isCustomPath
+        FileUtil.Companion.CUSTOM_PATH = customPath
         FileUtil.Companion.INITIIALIZED = true
     }
 
