@@ -35,14 +35,14 @@ fun MainAppBar(onSettingsButtonClicked: (() -> Unit) = {}) {
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         actions = {
-            AppBarAction(Icons.Default.Search, onClick = { /*TODO*/ })
+            // AppBarAction(Icons.Default.Search, onClick = { /*TODO*/ })
             AppBarAction(Icons.Default.Settings, onClick = {
                 // onSettingsClick(context)
                     onSettingsButtonClicked()
             })
         },
         navigationIcon = {
-            NavigationMenuButton(Icons.Default.Menu, onClick = { /*TODO*/ })
+            // NavigationMenuButton(Icons.Default.Menu, onClick = { /*TODO*/ })
         }
     )
 }
