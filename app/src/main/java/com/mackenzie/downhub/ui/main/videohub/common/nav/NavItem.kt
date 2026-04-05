@@ -17,6 +17,8 @@ sealed class NavItem(
         fun createRoute(serverId: Int, serverUrl: String,) = baseRoute + File.separator + serverId + File.separator + serverUrl
     }
 
+    object FavoriteScreen : NavItem("favorite_screen")
+
     object PlayerScreen : NavItem("player_screen", listOf(NavArg.VideoId, NavArg.VideoUrl, NavArg.VideoEmbeddedUrl)) {
         fun createRoute( videoId: String, videoUrl: String, embedUrl: String) = baseRoute + File.separator + videoId + File.separator + videoUrl + File.separator + embedUrl
     }

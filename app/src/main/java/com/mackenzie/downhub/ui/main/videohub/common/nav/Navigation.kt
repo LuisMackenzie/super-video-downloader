@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
+import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesScreenContent
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
 import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
@@ -60,6 +61,10 @@ fun Navigation(
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable(NavItem.FavoriteScreen) {
+            FavoritesScreenContent()
         }
     }
 }
