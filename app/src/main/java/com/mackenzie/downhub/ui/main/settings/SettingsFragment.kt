@@ -2,14 +2,15 @@ package com.mackenzie.downhub.ui.main.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Observable
 import com.mackenzie.downhub.R
@@ -45,6 +46,47 @@ class SettingsFragment : BaseFragment() {
     private lateinit var settingsViewModel: SettingsViewModel
 
     private var lastSavedRegularThreadsCount = -1
+
+    /**
+     * Launches the system folder picker (SAF) and handles the result.
+     * Takes persistent read/write permissions and converts the tree URI
+     * to a filesystem path for the download pipeline.
+     */
+    private val folderPickerLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocumentTree()
+    ) { treeUri ->
+        if (treeUri != null) {
+            // Take persistent permissions so the app retains access across reboots
+            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            requireContext().contentResolver.takePersistableUriPermission(treeUri, takeFlags)
+
+            val filePath = FileUtil.treeUriToFilePath(treeUri)
+            if (filePath != null) {
+                val dir = File(filePath)
+                if (dir.exists() && dir.canWrite() || dir.mkdirs()) {
+                    settingsViewModel.setDownloadsFolderCustom(filePath)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.custom_path_invalid),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    revertRadioToCurrentStorage()
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.custom_path_invalid),
+                    Toast.LENGTH_LONG
+                ).show()
+                revertRadioToCurrentStorage()
+            }
+        } else {
+            // User cancelled the picker — revert radio button selection
+            revertRadioToCurrentStorage()
+        }
+    }
 
     private val tresholdCallback = object : Observable.OnPropertyChangedCallback() {
         @SuppressLint("SetTextI18n")
@@ -94,6 +136,7 @@ class SettingsFragment : BaseFragment() {
         setupSeekBarListeners()
         setupRadioGroupListener()
         setupTextUpdateCallbacks()
+        setupCustomPathClickListener()
         handleUIEvents()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -168,6 +211,21 @@ class SettingsFragment : BaseFragment() {
         storageTypeCallback.onPropertyChanged(null, 0)
     }
 
+    private fun setupTextUpdateCallbacks() {
+        settingsViewModel.videoDetectionTreshold.addOnPropertyChangedCallback(tresholdCallback)
+        tresholdCallback.onPropertyChanged(null, 0)
+    }
+
+    /**
+     * Allows the user to tap on the currently displayed custom path
+     * to re-launch the folder picker and choose a different directory.
+     */
+    private fun setupCustomPathClickListener() {
+        dataBinding.customPathDisplay.setOnClickListener {
+            launchFolderPicker()
+        }
+    }
+
     private fun handleUIEvents() {
         settingsViewModel.clearCookiesEvent.observe(viewLifecycleOwner) {
             systemUtil.clearCookies(context)
@@ -176,58 +234,24 @@ class SettingsFragment : BaseFragment() {
             intentUtil.openVideoFolder(context, fileUtil.folderDir.path)
         }
         settingsViewModel.showCustomPathPickerEvent.observe(viewLifecycleOwner) {
-            showCustomPathDialog()
+            launchFolderPicker()
         }
     }
 
-    private fun setupTextUpdateCallbacks() {
-        tresholdCallback.let {
-            settingsViewModel.videoDetectionTreshold.addOnPropertyChangedCallback(
-                it
-            )
-        }
-
-        tresholdCallback.onPropertyChanged(null, 0)
+    /**
+     * Opens the system folder picker (SAF ACTION_OPEN_DOCUMENT_TREE).
+     */
+    private fun launchFolderPicker() {
+        folderPickerLauncher.launch(null)
     }
 
-    private fun showCustomPathDialog() {
-        val currentPath = settingsViewModel.customPathDisplay.get() ?: ""
-        val editText = EditText(requireContext()).apply {
-            setText(currentPath)
-            hint = getString(R.string.custom_path_hint)
-            setPadding(48, 32, 48, 16)
-            inputType = android.text.InputType.TYPE_CLASS_TEXT
-        }
-
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.custom_path_title))
-            .setMessage(getString(R.string.custom_path_message))
-            .setView(editText)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                val path = editText.text.toString().trim()
-                if (path.isNotEmpty()) {
-                    val dir = File(path)
-                    if (dir.exists() && dir.canWrite() || dir.mkdirs()) {
-                        settingsViewModel.setDownloadsFolderCustom(path)
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.custom_path_invalid),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        storageTypeCallback.onPropertyChanged(null, 0)
-                    }
-                } else {
-                    storageTypeCallback.onPropertyChanged(null, 0)
-                }
-            }
-            .setNegativeButton(android.R.string.cancel) { _, _ ->
-                storageTypeCallback.onPropertyChanged(null, 0)
-            }
-            .setOnCancelListener {
-                storageTypeCallback.onPropertyChanged(null, 0)
-            }
-            .show()
+    /**
+     * Reverts the radio group selection to match the currently active storage type
+     * in the ViewModel. Used when the folder picker is cancelled or the selected
+     * path is invalid.
+     */
+    private fun revertRadioToCurrentStorage() {
+        storageTypeCallback.onPropertyChanged(null, 0)
     }
 
     private fun showDownloadWarningDialog(context: Context) {

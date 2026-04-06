@@ -67,6 +67,35 @@ class FileUtil @Inject constructor() {
             }
         }
 
+        /**
+         * Converts a document tree [Uri] (returned by ACTION_OPEN_DOCUMENT_TREE)
+         * into a filesystem path that can be used with [java.io.File].
+         *
+         * Handles primary (internal) and secondary (SD card) volumes.
+         * Returns `null` when the URI scheme is not recognised.
+         */
+        fun treeUriToFilePath(treeUri: Uri): String? {
+            val docId = try {
+                DocumentsContract.getTreeDocumentId(treeUri)
+            } catch (_: Exception) {
+                return null
+            }
+
+            val parts = docId.split(":", limit = 2)
+            val volumeId = parts.getOrNull(0) ?: return null
+            val relativePath = parts.getOrNull(1) ?: ""
+
+            return if (volumeId.equals("primary", ignoreCase = true)) {
+                // Internal storage
+                val basePath = Environment.getExternalStorageDirectory().absolutePath
+                if (relativePath.isEmpty()) basePath else "$basePath/$relativePath"
+            } else {
+                // SD card / secondary volume — /storage/<volumeId>/<path>
+                val basePath = "/storage/$volumeId"
+                if (relativePath.isEmpty()) basePath else "$basePath/$relativePath"
+            }
+        }
+
         fun getFreeDiskSpace(path: File): Long {
             if (!path.exists()) {
                 throw IllegalArgumentException("Path does not exist")
