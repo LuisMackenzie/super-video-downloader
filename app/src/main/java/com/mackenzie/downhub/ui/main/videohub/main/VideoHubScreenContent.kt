@@ -25,9 +25,9 @@ fun VideoHubScreenContent(
 
     var openUpdateDialog by remember { mutableStateOf(false) }
 
-    if (openUpdateDialog) {
+    /*if (openUpdateDialog) {
         UpdateDialog(
-            // TODO fetch from firebase remoe config
+            // TODO fetch from firebase remote config
             // latestVersion = remote.latestServerVersion ?: "",
             onDismissRequest = { openUpdateDialog = it },
             onConfirmation = {
@@ -39,7 +39,7 @@ fun VideoHubScreenContent(
                 // }
             }
         )
-    }
+    }*/
 
     Scaffold(
         topBar = { MainAppBar(
