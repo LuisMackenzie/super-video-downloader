@@ -1,15 +1,18 @@
 package com.mackenzie.downhub.ui.main.videohub.common
 
+import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
@@ -19,6 +22,8 @@ import com.google.android.gms.cast.MediaLoadRequestData
 import com.google.android.gms.cast.framework.CastSession
 import com.google.android.gms.cast.MediaInfo
 import com.google.android.gms.cast.MediaMetadata
+import com.mackenzie.downhub.BuildConfig
+import com.mackenzie.downhub.R
 import org.json.JSONObject
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -36,6 +41,29 @@ fun String.urlEncoder(): String {
 fun String.urlDecoder(): String {
     val decodedUrl = URLDecoder.decode(this, StandardCharsets.UTF_8.toString())
     return decodedUrl
+}
+
+fun String.removeVersionSuffix(): String {
+    return this.substringBefore("-")
+}
+
+fun String.getFlavorLink(context: Context): String {
+    val baseLink = context.getString(R.string.dialog_update_download_base_link)
+    val debugFile = context.getString(R.string.dialog_update_download_debug_file_name)
+    // val enhancedFile = context.getString(R.string.dialog_update_download_enhanced_file_name)
+    val releaseFile = context.getString(R.string.dialog_update_download_release_file_name)
+    return when (BuildConfig.VERSION_NAME.substringAfterLast("-")) {
+        "DEBUG" -> { baseLink + this + debugFile }
+        // "PRIME" -> { baseLink + this + enhancedFile }
+        else -> { baseLink + this + releaseFile }
+    }
+}
+
+fun Context.hasWriteExternalStoragePermission(): Boolean {
+    return ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 }
 
 fun Activity.hideSystemBars() {
@@ -185,4 +213,8 @@ fun Context.getExternalPlayerMode(): Boolean {
     val modeExternal = sharedPref.getBoolean("external_player_mode", false)
     Log.v("GetMode", "GET::modeExternal=${modeExternal}")
     return modeExternal
+}
+
+fun String.showToast(context: Context) {
+    Toast.makeText(context, this, Toast.LENGTH_LONG).show()
 }

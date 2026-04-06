@@ -6,16 +6,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.getString
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mackenzie.downhub.R
+import com.mackenzie.downhub.ui.main.videohub.common.SaveUtils
+import com.mackenzie.downhub.ui.main.videohub.common.showToast
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesScreenContent
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesViewModel
+import com.mackenzie.downhub.ui.main.videohub.main.UpdateDialog
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
 import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
@@ -30,10 +38,28 @@ fun Navigation(
 
     val context = LocalContext.current
     val navController = rememberNavController()
+    var openUpdateDialog by remember { mutableStateOf(false) }
 
     // val favoritesViewModel: FavoritesViewModel = hiltViewModel()
     val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
     val favorites by favoritesViewModel.favorites.collectAsState()
+
+    if (openUpdateDialog) {
+        UpdateDialog(
+            // TODO fetch from firebase remoe config
+            // latestVersion = remote.latestServerVersion ?: "",
+            latestVersion = "0.9.1",
+            onDismissRequest = { openUpdateDialog = it },
+            onConfirmation = {
+                /*remote.latestServerVersion?.let {
+                    if (SaveUtils().downloadAndInstallUpdate(context, "0.9.1")) {
+                        getString(context, R.string.dialog_updates_downloading).showToast(context)
+                        openUpdateDialog = false
+                    }
+                }*/
+            }
+        )
+    }
 
     DisposableEffect(Unit) {
         favoritesViewModel.start()

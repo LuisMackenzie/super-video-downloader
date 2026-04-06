@@ -147,4 +147,16 @@
     <string name="external_player_mode">Use External Player</string>
     <string name="open_server_in_browser">Open Server in Browser</string>
 
+    <!-- DIALOG APP UPDATE -->
+    <string name="dialog_update_title">Hay una actualización</string>
+    <string name="dialog_update_subtitle">Se recomienda actualizar la aplicación.</string>
+    <string name="dialog_update_local_version">Tu Version:</string>
+    <string name="dialog_update_latest_version">Última Version Lanzada:</string>
+    <string name="dialog_update_accept">Actualizar</string>
+    <string name="dialog_updates_downloading">Descargando actualización…</string>
+    <string name="dialog_update_download_base_link">https://github.com/LuisMackenzie/Waifu-Viewer/releases/download/v</string>
+    <string name="dialog_update_download_debug_file_name">/app-debug.apk</string>
+    <string name="dialog_update_download_release_file_name">/app-release.apk</string>
+    <string name="dialog_update_download_enhanced_file_name">/app-enhanced.apk</string>
+
 </resources>
