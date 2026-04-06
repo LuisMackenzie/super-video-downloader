@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 5,
-    "identityHash": "6d6132c93e882b77eb300b9b54fbf202",
+    "version": 8,
+    "identityHash": "f91df3093df4aebab2949fda0e2b6e3a",
     "entities": [
       {
         "tableName": "PageInfo",
@@ -89,7 +89,7 @@
       },
       {
         "tableName": "VideoInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `downloadUrls` TEXT NOT NULL, `title` TEXT NOT NULL, `ext` TEXT NOT NULL, `thumbnail` TEXT NOT NULL, `duration` INTEGER NOT NULL, `originalUrl` TEXT NOT NULL, `formats` TEXT NOT NULL, `isRegular` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `downloadUrls` TEXT NOT NULL, `title` TEXT NOT NULL, `ext` TEXT NOT NULL, `thumbnail` TEXT NOT NULL, `duration` INTEGER NOT NULL, `originalUrl` TEXT NOT NULL, `formats` TEXT NOT NULL, `isRegular` INTEGER NOT NULL, `isLive` INTEGER NOT NULL DEFAULT 0, `isDetectedBySuperX` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -144,6 +144,20 @@
             "columnName": "isRegular",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "isLive",
+            "columnName": "isLive",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isDetectedBySuperX",
+            "columnName": "isDetectedBySuperX",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -306,7 +320,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6d6132c93e882b77eb300b9b54fbf202')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f91df3093df4aebab2949fda0e2b6e3a')"
     ]
   }
 }
