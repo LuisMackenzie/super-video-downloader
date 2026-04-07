@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlin.allopen)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.coveralls)
+    alias(libs.plugins.google.services)
     id("jacoco")
 }
 
@@ -125,7 +126,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "0.9.0"
+        versionName = "0.9.1"
 
         if (splitApks) {
             splits {
@@ -325,6 +326,10 @@ dependencies {
     implementation(libs.extension.cast)
     implementation(libs.androidx.mediarouter)
     implementation(libs.play.services.cast.framework)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.config)
 
     // Image Loading
     implementation(libs.glideRuntime)

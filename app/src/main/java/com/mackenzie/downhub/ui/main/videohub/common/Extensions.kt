@@ -208,6 +208,23 @@ fun Context.setExternalPlayerMode(modeExternal: Boolean) {
     Log.v("SetMode", "SET::modeExternal=${modeExternal}")
 }
 
+fun String.compareVersion(): Int {
+    val currentVersion = BuildConfig.VERSION_NAME.removeVersionSuffix()
+    if (this.isEmpty()) return 0
+    val localParts = currentVersion.split(".")
+    val serverParts = this.split(".")
+    if (serverParts.size > localParts.size) return -1
+    val maxLength = maxOf(localParts.size, serverParts.size)
+    for (i in 0 until maxLength) {
+        val localValue = if (i < localParts.size) localParts[i].toIntOrNull() ?: 0 else 0
+        val serverValue = if (i < serverParts.size) serverParts[i].toIntOrNull() ?: 0 else 0
+
+        if (localValue < serverValue) return -1
+        if (localValue > serverValue) return 1
+    }
+    return 0
+}
+
 fun Context.getExternalPlayerMode(): Boolean {
     val sharedPref = getSharedPreferences("video_player_prefs", Context.MODE_PRIVATE)
     val modeExternal = sharedPref.getBoolean("external_player_mode", false)

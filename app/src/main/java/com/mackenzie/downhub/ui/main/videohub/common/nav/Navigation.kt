@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,8 +18,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mackenzie.downhub.BuildConfig
 import com.mackenzie.downhub.R
 import com.mackenzie.downhub.ui.main.videohub.common.SaveUtils
+import com.mackenzie.downhub.ui.main.videohub.common.compareVersion
+import com.mackenzie.downhub.ui.main.videohub.common.removeVersionSuffix
 import com.mackenzie.downhub.ui.main.videohub.common.showToast
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesScreenContent
@@ -27,6 +31,7 @@ import com.mackenzie.downhub.ui.main.videohub.main.UpdateDialog
 import com.mackenzie.downhub.ui.main.videohub.main.VideoHubScreenContent
 import com.mackenzie.downhub.ui.main.videohub.player.VideoPlayerScreenContent
 import com.mackenzie.downhub.ui.main.videohub.videolist.VideoListScreenContent
+import com.mackenzie.downhub.util.RemoteConfigHelper
 import com.mackenzie.downhub.util.SharedPrefHelper
 
 @Composable
@@ -39,24 +44,39 @@ fun Navigation(
     val context = LocalContext.current
     val navController = rememberNavController()
     var openUpdateDialog by remember { mutableStateOf(false) }
+    var latestServerVersion by remember { mutableStateOf("") }
 
     // val favoritesViewModel: FavoritesViewModel = hiltViewModel()
     val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
     val favorites by favoritesViewModel.favorites.collectAsState()
 
+    // Fetch Remote Config and check for updates on first composition
+    LaunchedEffect(Unit) {
+        try {
+            RemoteConfigHelper.init()
+            RemoteConfigHelper.fetchAndActivate()
+            val latestVersion = RemoteConfigHelper.latestServerVersion
+            // val currentVersion = BuildConfig.VERSION_NAME.removeVersionSuffix()
+            Log.d("Navigation", "Version check — current=${BuildConfig.VERSION_NAME.removeVersionSuffix()}, latest=$latestVersion")
+            val existNewVersion = compareVersionName(latestVersion)
+            if (existNewVersion) {
+                latestServerVersion = latestVersion
+                openUpdateDialog = true
+            }
+        } catch (e: Exception) {
+            Log.e("Navigation", "Remote Config fetch failed", e)
+        }
+    }
+
     if (openUpdateDialog) {
         UpdateDialog(
-            // TODO fetch from firebase remoe config
-            // latestVersion = remote.latestServerVersion ?: "",
-            latestVersion = "0.9.1",
+            latestVersion = latestServerVersion,
             onDismissRequest = { openUpdateDialog = it },
             onConfirmation = {
-                /*remote.latestServerVersion?.let {
-                    if (SaveUtils().downloadAndInstallUpdate(context, "0.9.1")) {
-                        getString(context, R.string.dialog_updates_downloading).showToast(context)
-                        openUpdateDialog = false
-                    }
-                }*/
+                if (SaveUtils().downloadAndInstallUpdate(context, latestServerVersion)) {
+                    getString(context, R.string.dialog_updates_downloading).showToast(context)
+                    openUpdateDialog = false
+                }
             }
         )
     }
@@ -126,6 +146,36 @@ fun Navigation(
                     navController.navigate(route = NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
                 }
             }
+        }
+    }
+}
+
+private fun compareVersionName(latest: String): Boolean {
+
+    when (latest.compareVersion()) {
+        0 -> {
+            Log.e("SelectorScreenContentRoute", "La version del Servidor es la misma que la local")
+            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
+            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
+            return false
+        }
+        1 -> {
+            Log.e("SelectorScreenContentRoute", "La version del Servidor es MENOR que la local")
+            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
+            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
+            return false
+        }
+        -1 -> {
+            Log.e("SelectorScreenContentRoute", "La version del Servidor es MAYOR que la local")
+            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
+            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
+            return true
+        }
+        else -> {
+            Log.e("SelectorScreenContentRoute", "Error al comparar versiones")
+            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
+            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
+            return false
         }
     }
 }
