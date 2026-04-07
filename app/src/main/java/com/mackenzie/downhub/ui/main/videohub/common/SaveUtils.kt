@@ -34,7 +34,7 @@ class SaveUtils {
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
-                    "waifu-${BuildConfig.BUILD_TYPE}-V${latestVer}-C${BuildConfig.VERSION_CODE}.apk")
+                    "Naughty-${BuildConfig.BUILD_TYPE}-V${latestVer}-C${BuildConfig.VERSION_CODE}.apk")
                 .setMimeType("application/vnd.android.package-archive")
 
             val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

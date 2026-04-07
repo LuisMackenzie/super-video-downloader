@@ -24,6 +24,7 @@ import com.mackenzie.downhub.ui.main.videohub.common.SaveUtils
 import com.mackenzie.downhub.ui.main.videohub.common.compareVersion
 import com.mackenzie.downhub.ui.main.videohub.common.removeVersionSuffix
 import com.mackenzie.downhub.ui.main.videohub.common.showToast
+import com.mackenzie.downhub.ui.main.videohub.common.ui.compareVersionName
 import com.mackenzie.downhub.ui.main.videohub.common.urlEncoder
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesScreenContent
 import com.mackenzie.downhub.ui.main.videohub.favs.FavoritesViewModel
@@ -146,36 +147,6 @@ fun Navigation(
                     navController.navigate(route = NavItem.VideoListScreen.createRoute(serverId, serverUrl.urlEncoder()))
                 }
             }
-        }
-    }
-}
-
-private fun compareVersionName(latest: String): Boolean {
-
-    when (latest.compareVersion()) {
-        0 -> {
-            Log.e("SelectorScreenContentRoute", "La version del Servidor es la misma que la local")
-            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
-            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
-            return false
-        }
-        1 -> {
-            Log.e("SelectorScreenContentRoute", "La version del Servidor es MENOR que la local")
-            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
-            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
-            return false
-        }
-        -1 -> {
-            Log.e("SelectorScreenContentRoute", "La version del Servidor es MAYOR que la local")
-            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
-            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
-            return true
-        }
-        else -> {
-            Log.e("SelectorScreenContentRoute", "Error al comparar versiones")
-            Log.e("SelectorScreenContentRoute", "local Version=${BuildConfig.VERSION_NAME}")
-            Log.e("SelectorScreenContentRoute", "Server Version=${latest}")
-            return false
         }
     }
 }

@@ -29,7 +29,7 @@ object RemoteConfigHelper {
     const val KEY_LATEST_SERVER_VERSION = "latest_server_version"
 
     /** Default value used until the first successful fetch. */
-    private const val DEFAULT_LATEST_VERSION = "0.1.0"
+    private const val DEFAULT_LATEST_VERSION = "0.0.0"
 
     private val remoteConfig: FirebaseRemoteConfig
         get() = Firebase.remoteConfig
